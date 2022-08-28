@@ -5,7 +5,7 @@ import HomePage from './components/pages/HomePage';
 
 import NotFound from './components/pages/NotFound';
 
-import QuestionDiagram from './components/pages/QuestionPage';
+import QuestionPage from './components/pages/QuestionPage';
 
 
 
@@ -23,7 +23,7 @@ function App() {
       <Routes>
 
 
-       <Route path='/create' element={<QuestionDiagram />}></Route>
+       <Route path='/create' element={<QuestionPage />}></Route>
        <Route path='/home' element={<HomePage />}></Route>
        <Route path="*" element={<NotFound />} />
       </Routes>
