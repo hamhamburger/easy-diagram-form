@@ -6,8 +6,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import QuestionForm from '../parts/QuestionForm';
 
-export default function FormDialog() {
+const buttonStyle={position:"absolute",top:"30px",left:"30px",  zIndex:10}
+
+export default function QuestionDialog({onSubmit,style}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -19,38 +22,18 @@ export default function FormDialog() {
   };
 
   return (
-    <div>
+    <div style={style}>
       <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>質問を追加する</DialogTitle>
+        <DialogTitle>新しい質問</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            質問を入力して下さい
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />          
-          <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Email Address"
-          type="string"
-          fullWidth
-          variant="standard"
-        />
+          <QuestionForm onFormComplete={onSubmit}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+
         </DialogActions>
       </Dialog>
     </div>

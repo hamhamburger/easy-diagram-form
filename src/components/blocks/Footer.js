@@ -8,10 +8,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import { useNavigate } from 'react-router-dom';
 
-const Footer = ()=>{
+const Footer = ({onClickAdd})=>{
   const navigate = useNavigate()
-  const [value, setValue] = React.useState(0);
-  
+
   return (
       <Box sx={{ color: "#ebf6f7",
       backgroundColor: "#0f2350",
@@ -23,15 +22,12 @@ const Footer = ()=>{
 
       <BottomNavigation
         showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+
       >
         <BottomNavigationAction label="About" icon={<RestoreIcon />} 
         onClick={()=>navigate("/home")}/>
         <BottomNavigationAction label="作成する" icon={<AddIcon />}
-          onClick={()=>navigate("/create") }/>
+          onClick={onClickAdd}/>
         <BottomNavigationAction label="Home" icon={<LocationOnIcon />} />
       </BottomNavigation>
     </Box>

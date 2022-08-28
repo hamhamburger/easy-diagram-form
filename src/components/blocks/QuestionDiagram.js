@@ -6,7 +6,7 @@ import HandleChangeableNode from "../organisms/HandleChangeableNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
 import FormDialog from "../blocks/QuestionDialog";
 import Footer from "../blocks/Footer";
-
+import QuestionDialog from "../blocks/QuestionDialog";
 const Style = {
   backgroundColor: '#B8CEFF',
   height:"100vh"
@@ -74,8 +74,8 @@ const QuestionDiagram = ()=>{
     },
     [setEdges]
   );
-  const addNode = useCallback(() => {
-    
+  const addNode = (question_body,answers) => {
+    console.log(question_body)
     const id = `${++nodeId}`;
     const newNode = {
       id,
@@ -85,16 +85,15 @@ const QuestionDiagram = ()=>{
         y: Math.random() * 500,
       },
       data: {
-        label: `Node ${id}`,body: 'A or B?',answers:["A","B"]
+        label: `Node ${id}`,body: question_body,answers:answers
       },
     };
     reactFlowInstance.addNodes(newNode);
-  }, []);
+  }
 
+  
 
-
-
-  const buttonStyle={position:"absolute",top:"30px",left:"30px",  zIndex:10}
+  const buttonStyle={position:"absolute",bottom:"80px",right:"30px",  zIndex:10}
   return(
     <>
      <ReactFlow
@@ -108,8 +107,9 @@ const QuestionDiagram = ()=>{
         style={Style}
       >
       </ReactFlow>
-      <button onClick={addNode} className="btn-add" style={buttonStyle}>addnode</button>
-      <Footer />
+      <QuestionDialog onSubmit={addNode} style={buttonStyle}/>
+      <Footer onClickAdd={addNode}/>
+      <></>
     </>
   );
       
