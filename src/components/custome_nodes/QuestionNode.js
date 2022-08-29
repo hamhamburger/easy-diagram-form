@@ -23,8 +23,10 @@ const AnswerHandle = ({num,answer}) => {
     setConnectionCount(1)
 
   } 
-  return(
+  return(<div>
     <Handle type="source" position={Position.Bottom} id={answer} onConnect={onConnect} style={handleStyle} isValidConnection={isValid} />
+    <label>{answer}</label>
+    </div>
   )
 }
 const InputHandle = ({num,onConnect}) => {

@@ -29,7 +29,7 @@ export default function QuestionDialog({onSubmit,style}) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>新しい質問</DialogTitle>
         <DialogContent>
-          <QuestionForm onFormComplete={onSubmit}/>
+          <QuestionForm onSubmit={onSubmit}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

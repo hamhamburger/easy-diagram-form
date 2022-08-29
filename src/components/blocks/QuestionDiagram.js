@@ -1,12 +1,18 @@
+
+// for debugging
+import TestFlowComponent from "../TestFlowComponent";
+//
+
 import React from "react";
 
-import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges } from 'react-flow-renderer';
+import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState,} from 'react-flow-renderer';
 import { useCallback, useState, useMemo} from 'react';
 import HandleChangeableNode from "../organisms/HandleChangeableNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
 import FormDialog from "../blocks/QuestionDialog";
 import Footer from "../blocks/Footer";
 import QuestionDialog from "../blocks/QuestionDialog";
+import ButtonEdge from "../custome_edge/ButtonEdge";
 const Style = {
   backgroundColor: '#B8CEFF',
   height:"100vh"
@@ -52,10 +58,16 @@ const QuestionDiagram = ()=>{
   let nodeId=3
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const nodeTypes = useMemo(
     () => ({
       question: QuestionNode,handleChangeable: HandleChangeableNode 
+    }),
+    []
+  );
+  const edgeTypes = useMemo(
+    () => ({
+      buttonedge: ButtonEdge 
     }),
     []
   );
@@ -64,18 +76,21 @@ const QuestionDiagram = ()=>{
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [setNodes]
   );
-  const onEdgesChange = useCallback(
-    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    [setEdges]
-  );
+  // const onEdgesChange = useCallback(
+  //   (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+  //   [setEdges]
+  // );
   const onConnect = useCallback(
     (connection) => {
-      setEdges((eds) => addEdge({...connection,label:connection.sourceHandle,type:'step'},eds))
+      setEdges((eds) => addEdge({...connection,type:'buttonedge'},eds))
     },
     [setEdges]
   );
-  const addNode = (question_body,answers) => {
-    console.log(question_body)
+  const addNode = (data) => {
+    console.log(data)
+    const question_body = "A or B or C?"
+    const answers = ['a','b','c']
+    alert()
     const id = `${++nodeId}`;
     const newNode = {
       id,
@@ -91,7 +106,11 @@ const QuestionDiagram = ()=>{
     reactFlowInstance.addNodes(newNode);
   }
 
-  
+  // for debugging
+  const showEdges = () => {
+    console.log(edges)
+  }
+  //
 
   const buttonStyle={position:"absolute",bottom:"80px",right:"30px",  zIndex:10}
   return(
@@ -103,12 +122,18 @@ const QuestionDiagram = ()=>{
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         style={Style}
       >
       </ReactFlow>
       <QuestionDialog onSubmit={addNode} style={buttonStyle}/>
       <Footer onClickAdd={addNode}/>
+      {// for debugging
+      }
+      <TestFlowComponent onClick={showEdges}/>
+      {// for debugging
+      }
       <></>
     </>
   );

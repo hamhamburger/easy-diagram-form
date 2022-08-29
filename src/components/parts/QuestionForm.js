@@ -18,7 +18,7 @@ const QuestionForm = (onSubmit) => {
 
 
       
-      <form onSubmit={handleSubmit(handleClick)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         
         <Controller
                       name={`question[0].body`}
