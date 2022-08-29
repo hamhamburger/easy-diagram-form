@@ -57,34 +57,29 @@ const initialNodes = [
   },
   {
     id: '4',
-    type: 'output',
+    type: 'result',
     position: { x: 400, y: 400 },
     data: { label: 'ガンダム'},
   },
   {
     id: '5',
-    type: 'output',
+    type: 'result',
     position: { x: 400, y: 500 },
     data: { label: '人間'},
   },
   {
     id: '6',
-    type: 'output',
+    type: 'result',
     position: { x: 400, y: 500 },
     data: { label: '猫'},
   },
   {
     id: '7',
-    type: 'output',
+    type: 'result',
     position: { x: 400, y: 500 },
     data: { label: 'G'},
   },
-  {
-    id: '8',
-    type: 'textUpdater',
-    position: { x: 400, y: 500 },
-    data: {},
-  },
+
 ];
 
 const initialEdges = [
@@ -108,7 +103,7 @@ const QuestionDiagram = ()=>{
   const [nodeId, setNodeId] = useState(nodes.length)
   const nodeTypes = useMemo(
     () => ({
-      question: QuestionNode,textUpdater: ResultNode 
+      question: QuestionNode,result: ResultNode 
     }),
     []
   );
@@ -119,18 +114,11 @@ const QuestionDiagram = ()=>{
     []
   );
 
- /// const onNodesChange = useCallback(
- //   (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
- //   [setNodes]
- // );
-  // const onEdgesChange = useCallback(
-  //   (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-  //   [setEdges]
-  // );
+
   const onConnect = useCallback(
     (connection) => {
-      const answer = prompt('答えを入力してください');
-      setEdges((eds) => addEdge({...connection,type:'step',label:answer,},eds));
+      const answer = prompt("回答を入力して下さい");
+      setEdges((eds) => addEdge({...connection,type:'step',label:answer ? answer : 'はい',},eds));
     },
     [setEdges]
   );
@@ -153,10 +141,7 @@ const QuestionDiagram = ()=>{
     reactFlowInstance.addNodes(newNode);
   }
 
-  const onDeleteClick = (evt, id) => {
-    evt.stopPropagation();
-    console.log(`remove ${id}`);
-  };
+ 
 
 
   // for debugging

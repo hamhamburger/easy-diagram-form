@@ -9,7 +9,6 @@ const handleStyle = { left: 10 };
 function ResultNode({ data }) {
   const {label} = data
   const onChange = useCallback((evt) => {
-    console.log(evt.target.value);
     data.label = evt.target.value;
   }, []);
 

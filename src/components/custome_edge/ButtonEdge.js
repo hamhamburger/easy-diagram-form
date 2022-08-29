@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useCallback} from 'react';
 import { getBezierPath, getEdgeCenter, getMarkerEnd } from 'react-flow-renderer';
 
 
@@ -18,6 +18,7 @@ export default function ButtonEdge({
   style = {},
   markerEnd,
   onDeleteClick,
+  data,
 }) {
   const edgePath = getBezierPath({
     sourceX,
@@ -35,11 +36,16 @@ export default function ButtonEdge({
   });
   const [answer, setAnswer] = useState("")
 
-  const onRenameClick = (evt, id) => {
+
+  const onRenameClick =  useCallback((evt) => {
     evt.stopPropagation();
     const name = prompt("答え");
     setAnswer(name)
-  };
+    data.label = name
+  }, []);
+
+ 
+
 
 
   return (

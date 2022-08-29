@@ -1,16 +1,16 @@
 function createDataStructure(edges,nodes) {
   
 
-  const sample = [
-    {id:1,label:"A or B?",arrows:[{answer:'A',to:2},{answer:'B',to:3}]}
-
-  ]
   const array = []
 
   const questions = nodes.map(node => {
-    const obj = {arrows:[]}
+    const obj = {}
     obj.id = node.id
     obj.label = node.data.label
+    obj.type = node.type
+    if (node.type === 'question'){
+      obj.arrows = []
+    }
     return obj
   })
 
