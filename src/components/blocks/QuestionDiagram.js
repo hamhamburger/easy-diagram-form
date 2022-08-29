@@ -1,18 +1,24 @@
 
 // for debugging
 import TestFlowComponent from "../TestFlowComponent";
-//
+import createDataStructure from "../../lib/createDataStructure";
 
 import React from "react";
 
 import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
 import { useCallback, useState, useMemo,useRef} from 'react';
-import HandleChangeableNode from "../organisms/HandleChangeableNode";
+
+
+import ResultNode from "../custome_nodes/ResultNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
-import FormDialog from "../blocks/QuestionDialog";
+
+
+
+
 import Footer from "../blocks/Footer";
 import QuestionDialog from "../blocks/QuestionDialog";
 import ButtonEdge from "../custome_edge/ButtonEdge";
+import { Button } from "@mui/material";
 const Style = {
   backgroundColor: '#B8CEFF',
   height:"100vh"
@@ -25,6 +31,12 @@ const Style = {
 
 
 const initialNodes = [
+  {
+    id: '0',
+    type: 'question',
+    position: { x: 400, y: 200 },
+    data: { label: 'やっぱり？'},
+  },
   {
     id: '1',
     type: 'question',
@@ -67,6 +79,12 @@ const initialNodes = [
     position: { x: 400, y: 500 },
     data: { label: 'G'},
   },
+  {
+    id: '8',
+    type: 'textUpdater',
+    position: { x: 400, y: 500 },
+    data: {},
+  },
 ];
 
 const initialEdges = [
@@ -82,15 +100,15 @@ const initialEdges = [
 
 
 const QuestionDiagram = ()=>{
-  let nodeId=3
+  
   
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  
+  const [nodeId, setNodeId] = useState(nodes.length)
   const nodeTypes = useMemo(
     () => ({
-      question: QuestionNode,handleChangeable: HandleChangeableNode 
+      question: QuestionNode,textUpdater: ResultNode 
     }),
     []
   );
@@ -118,14 +136,15 @@ const QuestionDiagram = ()=>{
   );
   const addNode = (data) => {
     console.log(data)
-    const question_label = "A or B or C?"
-    const id = `${++nodeId}`;
+    const question_label = prompt("質問を入力して下さい")
+    setNodeId(nodeId+1)
+    const id = `${nodeId}`;
     const newNode = {
       id,
       type:'question',
       position: {
-        x: Math.random() * 500,
-        y: Math.random() * 500,
+        x: 500,
+        y: nodeId * 300,
       },
       data: {
         label: `Node ${id}`,label: question_label
@@ -195,11 +214,20 @@ const QuestionDiagram = ()=>{
         style={Style}
       >
       </ReactFlow>
-      <QuestionDialog onSubmit={addNode} style={buttonStyle}/>
+      {
+      //<QuestionDialog onSubmit={addNode} style={buttonStyle}/>
+    }
+      <Button variant="outlined" onClick={addNode} style={buttonStyle}>
+        質問を追加する
+      </Button>
       <Footer onClickAdd={addNode}/>
       {// for debugging
       }
-      <TestFlowComponent onClick={showEdges}/>
+      <TestFlowComponent onClick={()=>{
+          createDataStructure(edges,nodes)
+          showEdges()
+        }
+      }/>
       {// for debugging
       }
       <></>
@@ -216,7 +244,6 @@ const QuestionDiagram = ()=>{
         <ReactFlowProvider>
           <QuestionDiagram />
         </ReactFlowProvider>
-        <FormDialog />
       </>
     );
   }
