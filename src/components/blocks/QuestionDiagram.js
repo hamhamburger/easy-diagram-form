@@ -5,8 +5,8 @@ import TestFlowComponent from "../TestFlowComponent";
 
 import React from "react";
 
-import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState} from 'react-flow-renderer';
-import { useCallback, useState, useMemo} from 'react';
+import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
+import { useCallback, useState, useMemo,useRef} from 'react';
 import HandleChangeableNode from "../organisms/HandleChangeableNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
 import FormDialog from "../blocks/QuestionDialog";
@@ -29,19 +29,19 @@ const initialNodes = [
     id: '1',
     type: 'question',
     position: { x: 400, y: 200 },
-    data: { body: '二本足? 四本足?',answers:["2","4"] },
+    data: { label: '二本足? 四本足?'},
   },
   {
     id: '2',
     type: 'question',
     position: { x: 200, y: 200 },
-    data: { body: '可愛い?',answers:["y","n"] },
+    data: { label: '可愛い?'},
   },
   {
     id: '3',
     type: 'question',
     position: { x: 300, y: 200 },
-    data: { body: '人間?　機械?',answers:["人間","機械"] },
+    data: { label: '人間?　機械?' },
   },
   {
     id: '4',
@@ -83,9 +83,11 @@ const initialEdges = [
 
 const QuestionDiagram = ()=>{
   let nodeId=3
+  
   const reactFlowInstance = useReactFlow();
-  const [nodes, setNodes] = useState(initialNodes);
+  const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  
   const nodeTypes = useMemo(
     () => ({
       question: QuestionNode,handleChangeable: HandleChangeableNode 
@@ -99,10 +101,10 @@ const QuestionDiagram = ()=>{
     []
   );
 
-  const onNodesChange = useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    [setNodes]
-  );
+ /// const onNodesChange = useCallback(
+ //   (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
+ //   [setNodes]
+ // );
   // const onEdgesChange = useCallback(
   //   (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
   //   [setEdges]
@@ -116,9 +118,7 @@ const QuestionDiagram = ()=>{
   );
   const addNode = (data) => {
     console.log(data)
-    const question_body = "A or B or C?"
-    const answers = ['a','b','c']
-    alert()
+    const question_label = "A or B or C?"
     const id = `${++nodeId}`;
     const newNode = {
       id,
@@ -128,7 +128,7 @@ const QuestionDiagram = ()=>{
         y: Math.random() * 500,
       },
       data: {
-        label: `Node ${id}`,body: question_body,answers:answers
+        label: `Node ${id}`,label: question_label
       },
     };
     reactFlowInstance.addNodes(newNode);
@@ -148,6 +148,34 @@ const QuestionDiagram = ()=>{
   }
   //
 
+
+  
+
+  //edgeの処理
+  const edgeUpdateSuccessful = useRef(true);
+
+  const onEdgeUpdateStart = useCallback(() => {
+    edgeUpdateSuccessful.current = false;
+  }, []);
+
+  const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+    edgeUpdateSuccessful.current = true;
+    setEdges((els) => updateEdge(oldEdge, newConnection, els));
+  }, []);
+
+  const onEdgeUpdateEnd = useCallback((_, edge) => {
+    if (!edgeUpdateSuccessful.current) {
+      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+    }
+
+    edgeUpdateSuccessful.current = true;
+  }, []);
+
+  //
+
+
+
+
   const buttonStyle={position:"absolute",bottom:"80px",right:"30px",  zIndex:10}
   return(
     <>
@@ -157,6 +185,10 @@ const QuestionDiagram = ()=>{
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        snapToGrid
+        onEdgeUpdate={onEdgeUpdate}
+        onEdgeUpdateStart={onEdgeUpdateStart}
+        onEdgeUpdateEnd={onEdgeUpdateEnd}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         fitView

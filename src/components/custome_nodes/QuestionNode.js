@@ -36,7 +36,7 @@ const InputHandle = ({num,onConnect}) => {
 
 
 const QuestionNode = ({ data,id }) => {
-  const {body} = data
+  const {label} = data
   const inputHandleCount = 4
   const [answerHandleCount,setAnswerHandleCount] = useState(2)
   const nodeId = id
@@ -66,10 +66,10 @@ const QuestionNode = ({ data,id }) => {
           )
         }
       </div>
-      <p>{body}</p>
+      <p>{label}</p>
       <div className='outputButtonContainer'>
-        <button onClick={onClickAddAnswer}>AddOut</button>
         <button onClick={onClickRemoveAnswer}>RemoveOut</button>
+        <button onClick={onClickAddAnswer}>AddOut</button>
       </div>
 
       <div className="outputHandleContainer" style={handleContainerStyle}>
