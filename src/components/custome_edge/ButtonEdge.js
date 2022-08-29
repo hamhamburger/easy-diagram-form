@@ -17,6 +17,7 @@ export default function ButtonEdge({
   targetPosition,
   style = {},
   markerEnd,
+  onDeleteClick,
 }) {
   const edgePath = getBezierPath({
     sourceX,
@@ -34,12 +35,12 @@ export default function ButtonEdge({
   });
   const [answer, setAnswer] = useState("")
 
-  const onEdgeClick = (evt, id) => {
+  const onRenameClick = (evt, id) => {
     evt.stopPropagation();
-    console.log(`remove ${id}`);
     const name = prompt("答え");
     setAnswer(name)
   };
+
 
   return (
     <>
@@ -62,7 +63,7 @@ export default function ButtonEdge({
           <div>
           <label>{answer}</label>
           </div>
-          <button className="edgebutton" onClick={(event) => onEdgeClick(event, id)}>
+          <button className="edgebutton" onClick={(event) => onRenameClick(event, id)}>
             ×
           </button>
         </body>

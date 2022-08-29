@@ -5,7 +5,7 @@ import TestFlowComponent from "../TestFlowComponent";
 
 import React from "react";
 
-import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState,} from 'react-flow-renderer';
+import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState} from 'react-flow-renderer';
 import { useCallback, useState, useMemo} from 'react';
 import HandleChangeableNode from "../organisms/HandleChangeableNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
@@ -25,21 +25,48 @@ const Style = {
 
 
 const initialNodes = [
-  { id: 'node-1', type: 'handleChangeable', position: { x: 0, y: 0 }, data: { value: 123 } },
-  { id: 'node-2', type: 'handleChangeable', position: { x: 200, y: 0 }, data: { value: 123 } },
   {
-    id: 'node-3',
-    type: 'handleChangeable',
-    targetPosition: 'top',
-    position: { x: 200, y: 200 },
-    data: { label: 'node 3' },
-  },
-  {
-    id: 'node-4',
+    id: '1',
     type: 'question',
     position: { x: 400, y: 200 },
-    data: { body: 'A or B?',answers:["A","B"] },
-  }
+    data: { body: '二本足? 四本足?',answers:["2","4"] },
+  },
+  {
+    id: '2',
+    type: 'question',
+    position: { x: 200, y: 200 },
+    data: { body: '可愛い?',answers:["y","n"] },
+  },
+  {
+    id: '3',
+    type: 'question',
+    position: { x: 300, y: 200 },
+    data: { body: '人間?　機械?',answers:["人間","機械"] },
+  },
+  {
+    id: '4',
+    type: 'output',
+    position: { x: 400, y: 400 },
+    data: { label: 'ガンダム'},
+  },
+  {
+    id: '5',
+    type: 'output',
+    position: { x: 400, y: 500 },
+    data: { label: '人間'},
+  },
+  {
+    id: '6',
+    type: 'output',
+    position: { x: 400, y: 500 },
+    data: { label: '猫'},
+  },
+  {
+    id: '7',
+    type: 'output',
+    position: { x: 400, y: 500 },
+    data: { label: 'G'},
+  },
 ];
 
 const initialEdges = [
@@ -106,9 +133,17 @@ const QuestionDiagram = ()=>{
     reactFlowInstance.addNodes(newNode);
   }
 
+  const onDeleteClick = (evt, id) => {
+    evt.stopPropagation();
+    console.log(`remove ${id}`);
+  };
+
+
   // for debugging
   const showEdges = () => {
     console.log(edges)
+    console.log(nodes)
+    
   }
   //
 
