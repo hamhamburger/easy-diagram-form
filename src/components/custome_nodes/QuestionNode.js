@@ -11,7 +11,7 @@ const handleStyle = {
 }
 
 
-const AnswerHandle = ({num,answer}) => {
+const AnswerHandle = ({num}) => {
 
   const [connectionCount, setConnectionCount] = useState(0);
   const isValid = (obj)=>{
@@ -24,8 +24,7 @@ const AnswerHandle = ({num,answer}) => {
 
   } 
   return(<div>
-    <Handle type="source" position={Position.Bottom} id={answer} onConnect={onConnect} style={handleStyle} isValidConnection={isValid} />
-    <label>{answer}</label>
+    <Handle type="source" position={Position.Bottom} id={`out${num}`} onConnect={onConnect} style={handleStyle} isValidConnection={isValid} />
     </div>
   )
 }
@@ -37,12 +36,23 @@ const InputHandle = ({num,onConnect}) => {
 
 
 const QuestionNode = ({ data,id }) => {
-  const {answers,body} = data
+  const {body} = data
   const inputHandleCount = 4
-
+  const [answerHandleCount,setAnswerHandleCount] = useState(2)
   const nodeId = id
   const updateNodeInternals = useUpdateNodeInternals();
 
+
+  const onClickAddAnswer = (evt) => {
+    setAnswerHandleCount(answerHandleCount+1)
+    updateNodeInternals(nodeId)
+  }
+  const onClickRemoveAnswer = (evt) => {
+    if(answerHandleCount > 1){
+      setAnswerHandleCount(answerHandleCount-1)
+      updateNodeInternals(nodeId)
+    }
+  }
 
 
   return (
@@ -57,10 +67,15 @@ const QuestionNode = ({ data,id }) => {
         }
       </div>
       <p>{body}</p>
+      <div className='outputButtonContainer'>
+        <button onClick={onClickAddAnswer}>AddOut</button>
+        <button onClick={onClickRemoveAnswer}>RemoveOut</button>
+      </div>
+
       <div className="outputHandleContainer" style={handleContainerStyle}>
-        {answers.map((answer,i)=>{
+        {Array(answerHandleCount).fill().map((_,i)=>{
            return(
-             <AnswerHandle num={i} key={`${nodeId}output${i}`} nodeId={nodeId} answer={answer}/>
+             <AnswerHandle num={i} key={`${nodeId}output${i}`} nodeId={nodeId}/>
               )
             }
           )

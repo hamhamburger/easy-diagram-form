@@ -109,7 +109,8 @@ const QuestionDiagram = ()=>{
   // );
   const onConnect = useCallback(
     (connection) => {
-      setEdges((eds) => addEdge({...connection,type:'buttonedge'},eds))
+      const answer = prompt('答えを入力してください');
+      setEdges((eds) => addEdge({...connection,type:'step',label:answer,},eds));
     },
     [setEdges]
   );
