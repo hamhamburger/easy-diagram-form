@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{memo,useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -9,8 +9,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AnswerPage from '../pages/AnswerPage.js'
 
 
-export default function TryDialog({children,questions}) {
-  const [open, setOpen] = React.useState(false);
+const TryDialog = memo(({children,questions}) => {
+  console.log("trydialog rendered")
+  console.log(questions)
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,7 +21,7 @@ export default function TryDialog({children,questions}) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(questions)
+
   return (
     <div>
       <div onClick={handleClickOpen}>{children}</div>
@@ -39,3 +41,5 @@ export default function TryDialog({children,questions}) {
     </div>
   );
 }
+)
+export default TryDialog

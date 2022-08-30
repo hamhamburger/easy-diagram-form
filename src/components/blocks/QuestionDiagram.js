@@ -103,7 +103,7 @@ const QuestionDiagram = ()=>{
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [parsedQuestions, setParsedQuestions] = useState([])
+
   const [nodeId, setNodeId] = useState(nodes.length)
   const nodeTypes = useMemo(
     () => ({
@@ -127,7 +127,7 @@ const QuestionDiagram = ()=>{
       
       
     },
-    [setEdges,setParsedQuestions,edges,nodes]
+    [setEdges]
   );
   const addNode = (data) => {
 
@@ -172,11 +172,15 @@ const QuestionDiagram = ()=>{
     }
     
     edgeUpdateSuccessful.current = true;
+
   }, []);
 
-  //
-
   
+  const parsedQuestions = createDataStructure(edges,nodes)
+  /* 
+  レンダリング時にいちいちこの関数を呼び出しparsedQuestionsをセットしているのは非常に筋が悪いように思えるが今のところどこに置くべきかわからない
+  onEdgeUpdateEndやonConnectのコールバックに置いてもその関数が呼ばれている時点ではedgesに新しく作られたedgeが反映されていない
+ */
 
   return(
     <div>

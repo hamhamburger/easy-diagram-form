@@ -1,4 +1,4 @@
-import React,{useState,useCallback} from 'react';
+import React,{useState,useCallback,memo} from 'react';
 import { styled } from '@mui/material/styles';
 import Result from '../parts/play/Result';
 import { Button,Container,Box,Paper,Grid, bottomNavigationActionClasses } from '@mui/material';
@@ -81,7 +81,7 @@ const questions = [
 ]
 
 
-const AnswerPage = ({questions}) => {
+const AnswerPage = memo(({questions}) => {
   
 
 
@@ -152,7 +152,7 @@ const AnswerPage = ({questions}) => {
   }  
 
 
-}
+})
   export default AnswerPage
 
 
