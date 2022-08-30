@@ -4,13 +4,6 @@ import Result from '../parts/play/Result';
 import { Button,Container,Box,Paper,Grid, bottomNavigationActionClasses } from '@mui/material';
 import QuestionArea from '../parts/play/QuestionArea';
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 const questions = [
   {
@@ -88,12 +81,11 @@ const questions = [
 ]
 
 
-const AnswerPage = ()=>{
+const AnswerPage = ({questions}) => {
   
 
 
   const [questionIndexHistory, setQuestionIndexHistory] = useState([1]) 
-  console.log(questionIndexHistory)
   const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
 
   const goTo = (id) => {
@@ -104,7 +96,7 @@ const AnswerPage = ()=>{
     {
       const new_arr = questionIndexHistory.slice(0,questionIndexHistory.length)
       new_arr.pop()
-      console.log(new_arr)
+
       setQuestionIndexHistory(new_arr)
     }else{
       
@@ -113,8 +105,7 @@ const AnswerPage = ()=>{
   }
 
   if(currentQuestion.type === 'result'){
- 
-      console.log(questionIndexHistory)
+
 
       return(<Result message={currentQuestion.label} />)
 

@@ -1,6 +1,7 @@
 
 // for debugging
 import TestFlowComponent from "../TestFlowComponent";
+import TryDialog from "./TryDialog";
 import createDataStructure from "../../lib/createDataStructure";
 
 import React from "react";
@@ -102,6 +103,7 @@ const QuestionDiagram = ()=>{
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [parsedQuestions, setParsedQuestions] = useState([])
   const [nodeId, setNodeId] = useState(nodes.length)
   const nodeTypes = useMemo(
     () => ({
@@ -121,11 +123,15 @@ const QuestionDiagram = ()=>{
     (connection) => {
       const answer = prompt("回答を入力して下さい");
       setEdges((eds) => addEdge({...connection,type:'step',label:answer ? answer : 'はい',},eds));
+
+      
+      
     },
-    [setEdges]
+    [setEdges,setParsedQuestions,edges,nodes]
   );
   const addNode = (data) => {
-    console.log(data)
+
+  
     const question_label = prompt("質問を入力して下さい")
     setNodeId(nodeId+1)
     const id = `${nodeId}`;
@@ -146,15 +152,6 @@ const QuestionDiagram = ()=>{
  
 
 
-  // for debugging
-  const showEdges = () => {
-    console.log(edges)
-    console.log(nodes)
-    
-  }
-  //
-
-
   
 
   //edgeの処理
@@ -173,13 +170,13 @@ const QuestionDiagram = ()=>{
     if (!edgeUpdateSuccessful.current) {
       setEdges((eds) => eds.filter((e) => e.id !== edge.id));
     }
-
+    
     edgeUpdateSuccessful.current = true;
   }, []);
 
   //
 
-
+  
 
   return(
     <div>
@@ -207,9 +204,11 @@ const QuestionDiagram = ()=>{
               <label>保存する</label>
             </Box>
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-              <Fab color="primary" onClick={addNode}  aria-label="add" sx={{marginBottom:"5px"}}>
+              <TryDialog questions={parsedQuestions}>
+                <Fab color="primary" aria-label="add" sx={{marginBottom:"5px"}}>
                 <PlayArrowIcon />
               </Fab>
+              </TryDialog>
               <label>試してみる</label>
             </Box>
             <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center",marginTop:"20px"}}>
@@ -219,6 +218,8 @@ const QuestionDiagram = ()=>{
               <label>質問を追加する</label>
             </Box>
           </Box>
+      
+ 
     </div>
 
     
