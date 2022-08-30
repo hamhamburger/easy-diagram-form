@@ -91,27 +91,30 @@ const questions = [
 const AnswerPage = ()=>{
   
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(1)  
-  const [questionHistory, setQuestionHistory] = useState([1]) 
 
-  const currentQuestion = questions.find((question) => question.id == currentQuestionIndex)
-  const pushHistory = useCallback(
-    (id) => {
-      setQuestionHistory(questionHistory.push(currentQuestion))
-      console.log(questionHistory)
-    },
-    [setQuestionHistory,questionHistory]
-  )
+  const [questionIndexHistory, setQuestionIndexHistory] = useState([1]) 
+  console.log(questionIndexHistory)
+  const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
+
   const goTo = (id) => {
-    setCurrentQuestionIndex(id)
-    pushHistory(id)
+    setQuestionIndexHistory([...questionIndexHistory,id])
   }
-  
+  const back = () => {
+    if  (questionIndexHistory.length > 1)
+    {
+      const new_arr = questionIndexHistory.slice(0,questionIndexHistory.length)
+      new_arr.pop()
+      console.log(new_arr)
+      setQuestionIndexHistory(new_arr)
+    }else{
+      
+    }
 
+  }
 
   if(currentQuestion.type === 'result'){
  
-
+      console.log(questionIndexHistory)
 
       return(<Result message={currentQuestion.label} />)
 
@@ -140,7 +143,14 @@ const AnswerPage = ()=>{
                           )
                         }))
                       }
+
+                      
                     </Grid>
+                    <Grid item xs={12} sm={6} >
+                                <Button variant="contained" fullWidth sx={{height:"80px",fontSize:"30px"}} onClick={back}>
+                                  {"戻る"}
+                                </Button>
+                            </Grid>
                   </Container>
     
 
