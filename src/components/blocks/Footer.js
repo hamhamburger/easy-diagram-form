@@ -25,10 +25,10 @@ const Footer = ({onClickAdd})=>{
 
       >
         <BottomNavigationAction label="About" icon={<RestoreIcon />} 
-        onClick={()=>navigate("/home")}/>
+        onClick={()=>navigate("/create")}/>
         <BottomNavigationAction label="作成する" icon={<AddIcon />}
           onClick={onClickAdd}/>
-        <BottomNavigationAction label="Home" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Home" icon={<LocationOnIcon />} onClick={()=>navigate("/start")}/>
       </BottomNavigation>
     </Box>
 

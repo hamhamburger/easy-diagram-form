@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import QuestionForm from '../parts/QuestionForm';
+import QuestionForm from '../parts/create/QuestionForm';
 
 const buttonStyle={position:"absolute",top:"30px",left:"30px",  zIndex:10}
 

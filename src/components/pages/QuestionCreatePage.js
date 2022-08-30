@@ -19,7 +19,7 @@ const Style = {
 
 
 
-const QuestionPage = ()=>{
+const QuestionCreatePage = ()=>{
   return(
     <QuestionDiagram />
   )
@@ -28,7 +28,7 @@ const QuestionPage = ()=>{
   
 
 
-export default QuestionPage
+export default QuestionCreatePage
 
 
 

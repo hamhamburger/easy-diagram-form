@@ -17,7 +17,7 @@ function createDataStructure(edges,nodes) {
 
   edges.map((edge) => {
    
-    const question = questions.filter(question => question.id === edge.source)[0]
+    const question = questions.find(question => question.id === edge.source)
     question.arrows.push({
       answer:edge.label,
       to:edge.target

@@ -5,9 +5,9 @@ import HomePage from './components/pages/HomePage';
 
 import NotFound from './components/pages/NotFound';
 
-import QuestionPage from './components/pages/QuestionPage';
+import QuestionCreatePage from './components/pages/QuestionCreatePage';
 
-
+import AnswerPage from './components/pages/AnswerPage';
 
 
 
@@ -22,8 +22,8 @@ function App() {
 
       <Routes>
 
-
-       <Route path='/create' element={<QuestionPage />}></Route>
+      <Route path='/start' element={<AnswerPage />}></Route>
+       <Route path='/create' element={<QuestionCreatePage />}></Route>
        <Route path='/home' element={<HomePage />}></Route>
        <Route path="*" element={<NotFound />} />
       </Routes>
