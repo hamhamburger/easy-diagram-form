@@ -7,8 +7,10 @@ import React from "react";
 
 import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
 import { useCallback, useState, useMemo,useRef} from 'react';
-
-
+import AddIcon from '@mui/icons-material/Add';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import DoneIcon from '@mui/icons-material/Done';
+import { Button, Fab, Box,} from "@mui/material";
 import ResultNode from "../custome_nodes/ResultNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
 
@@ -18,7 +20,7 @@ import QuestionNode from "../custome_nodes/QuestionNode";
 import Footer from "../blocks/Footer";
 import QuestionDialog from "../blocks/QuestionDialog";
 import ButtonEdge from "../custome_edge/ButtonEdge";
-import { Button } from "@mui/material";
+
 const Style = {
   backgroundColor: '#B8CEFF',
   height:"100vh"
@@ -179,44 +181,47 @@ const QuestionDiagram = ()=>{
 
 
 
-
-  const buttonStyle={position:"absolute",bottom:"80px",right:"30px",  zIndex:10}
   return(
-    <>
-     <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        snapToGrid
-        onEdgeUpdate={onEdgeUpdate}
-        onEdgeUpdateStart={onEdgeUpdateStart}
-        onEdgeUpdateEnd={onEdgeUpdateEnd}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        fitView
-        style={Style}
-      >
-      </ReactFlow>
-      {
-      //<QuestionDialog onSubmit={addNode} style={buttonStyle}/>
-    }
-      <Button variant="outlined" onClick={addNode} style={buttonStyle}>
-        質問を追加する
-      </Button>
-      <Footer onClickAdd={addNode}/>
-      {// for debugging
-      }
-      <TestFlowComponent onClick={()=>{
-          createDataStructure(edges,nodes)
-          showEdges()
-        }
-      }/>
-      {// for debugging
-      }
-      <></>
-    </>
+    <div>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          snapToGrid
+          onEdgeUpdate={onEdgeUpdate}
+          onEdgeUpdateStart={onEdgeUpdateStart}
+          onEdgeUpdateEnd={onEdgeUpdateEnd}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          fitView
+          style={Style}
+         ></ReactFlow>
+     
+     <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",position:"absolute",     bottom:"40px",right:"30px",  zIndex:10}}>
+            <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center",marginTop:"20px"}}>
+              <Fab color="primary" onClick={addNode}  aria-label="add" sx={{marginBottom:"5px"}}>
+                <DoneIcon />
+              </Fab>
+              <label>保存する</label>
+            </Box>
+            <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+              <Fab color="primary" onClick={addNode}  aria-label="add" sx={{marginBottom:"5px"}}>
+                <PlayArrowIcon />
+              </Fab>
+              <label>試してみる</label>
+            </Box>
+            <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center",marginTop:"20px"}}>
+              <Fab color="primary" onClick={addNode}  aria-label="add" sx={{marginBottom:"5px"}}>
+                <AddIcon />
+              </Fab>
+              <label>質問を追加する</label>
+            </Box>
+          </Box>
+    </div>
+
+    
   );
       
   

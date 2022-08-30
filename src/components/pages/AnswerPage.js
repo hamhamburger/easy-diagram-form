@@ -1,7 +1,7 @@
 import React,{useState,useCallback} from 'react';
 import { styled } from '@mui/material/styles';
 import Result from '../parts/play/Result';
-import { Button,Container,Box,Paper,Grid } from '@mui/material';
+import { Button,Container,Box,Paper,Grid, bottomNavigationActionClasses } from '@mui/material';
 import QuestionArea from '../parts/play/QuestionArea';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -124,38 +124,41 @@ const AnswerPage = ()=>{
 
   else{
       return (
-        <Box sx={{height:"100vh",display: "flex",flexFlow:"column",justifyContent: "space-between"}}>
+        <div>
+          <Box sx={{height:"100vh",display: "flex",flexFlow:"column",justifyContent: "space-between"}}>
           
-                  <Box sx={{flex:1}}>
-                    <QuestionArea question={currentQuestion.label}/>
-            
-                  </Box>
-                  <Container sx={{flex:1}}>
-                    <Grid container rowSpacing={2} columnSpacing={2}>
-                      {
-                        currentQuestion.arrows.map((arrow=>{
-                          return(
-                            <Grid item xs={12} sm={6} >
-                                <Button variant="contained" fullWidth sx={{height:"80px",fontSize:"30px"}} onClick={()=>goTo(arrow.to)}>
-                                  {arrow.answer}
-                                </Button>
-                            </Grid>
-                          )
-                        }))
-                      }
-
-                      
-                    </Grid>
-                    <Grid item xs={12} sm={6} >
-                                <Button variant="contained" fullWidth sx={{height:"80px",fontSize:"30px"}} onClick={back}>
-                                  {"戻る"}
-                                </Button>
-                            </Grid>
-                  </Container>
+                    <Box sx={{flex:1}}>
+                      <QuestionArea question={currentQuestion.label}/>
+          
+                    </Box>
+                    <Container sx={{flex:1}}>
+                      <Grid container rowSpacing={2} columnSpacing={2}>
+                        {
+                          currentQuestion.arrows.map((arrow=>{
+                            return(
+                              <Grid item xs={12} sm={6} >
+                                  <Button variant="contained" fullWidth sx={{height:"80px",fontSize:"30px"}} onClick={()=>goTo(arrow.to)}>
+                                    {arrow.answer}
+                                  </Button>
+                              </Grid>
+                            )
+                          }))
+                        }
+                      </Grid>
+          
+          
+          
+                    </Container>
+              
+          
+                </Box>
+                <Button variant="contained" fullWidth sx={{height:"100px",fontSize:"30px",position:"fixed",bottom:'10px'}} onClick={back}>
+               {"戻る"}
+             </Button>
+        </div>
     
-
-      </Box>)
-    }  
+    )
+  }  
 
 
 }
