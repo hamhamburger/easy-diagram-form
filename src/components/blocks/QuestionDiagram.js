@@ -34,53 +34,59 @@ const Style = {
 
 
 const initialNodes = [
+  // {
+  //   id: '0',
+  //   type: 'question',
+  //   position: { x: 400, y: 200 },
+  //   data: { label: 'やっぱり？'},
+  // },
+  // {
+  //   id: '1',
+  //   type: 'question',
+  //   position: { x: 400, y: 200 },
+  //   data: { label: '二本足? 四本足?'},
+  // },
+  // {
+  //   id: '2',
+  //   type: 'question',
+  //   position: { x: 200, y: 200 },
+  //   data: { label: '可愛い?'},
+  // },
+  // {
+  //   id: '3',
+  //   type: 'question',
+  //   position: { x: 300, y: 200 },
+  //   data: { label: '人間?　機械?' },
+  // },
   {
     id: '0',
     type: 'question',
     position: { x: 400, y: 200 },
-    data: { label: 'やっぱり？'},
+    data: { label: '足は何本？'},
   },
   {
     id: '1',
-    type: 'question',
-    position: { x: 400, y: 200 },
-    data: { label: '二本足? 四本足?'},
+    type: 'result',
+    position: { x: 400, y: 400 },
+    data: {},
   },
   {
     id: '2',
-    type: 'question',
-    position: { x: 200, y: 200 },
-    data: { label: '可愛い?'},
+    type: 'result',
+    position: { x: 400, y: 500 },
+    data: {},
   },
   {
     id: '3',
-    type: 'question',
-    position: { x: 300, y: 200 },
-    data: { label: '人間?　機械?' },
+    type: 'result',
+    position: { x: 400, y: 500 },
+    data: {},
   },
   {
     id: '4',
     type: 'result',
-    position: { x: 400, y: 400 },
-    data: { label: 'ガンダム'},
-  },
-  {
-    id: '5',
-    type: 'result',
     position: { x: 400, y: 500 },
-    data: { label: '人間'},
-  },
-  {
-    id: '6',
-    type: 'result',
-    position: { x: 400, y: 500 },
-    data: { label: '猫'},
-  },
-  {
-    id: '7',
-    type: 'result',
-    position: { x: 400, y: 500 },
-    data: { label: 'G'},
+    data: {},
   },
 
 ];
@@ -139,8 +145,8 @@ const QuestionDiagram = ()=>{
       id,
       type:'question',
       position: {
-        x: 500,
-        y: nodeId * 300,
+        x: 400,
+        y: 300,
       },
       data: {
         label: `Node ${id}`,label: question_label

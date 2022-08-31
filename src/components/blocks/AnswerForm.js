@@ -10,7 +10,7 @@ const AnswerForm = memo(({questions,height}) => {
   
   
 
-  const [questionIndexHistory, setQuestionIndexHistory] = useState([1]) 
+  const [questionIndexHistory, setQuestionIndexHistory] = useState([0]) 
   const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
 
   const goTo = (id) => {
