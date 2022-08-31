@@ -22,7 +22,7 @@ const questions = [
   },
   {
       "id": "1",
-      "label": "\n行1はどうですか？もしそうなら和はやじゅ",
+      "label": "短い質問",
       "type": "question",
       "arrows": [
           {
@@ -30,7 +30,7 @@ const questions = [
               "to": "3"
           },
           {
-              "answer": "四本",
+              "answer": "長い質問",
               "to": "2"
           },
           {
@@ -86,7 +86,7 @@ const questions = [
   },
   {
       "id": "2",
-      "label": "可愛い?",
+      "label": "可愛い?長い長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問長い長い\n質問質問い\n質問質問い\n質問質問い\n質問質問い\n質問質問",
       "type": "question",
       "arrows": [
           {
@@ -105,7 +105,7 @@ const questions = [
       "type": "question",
       "arrows": [
           {
-              "answer": "人間",
+              "answer": "まだ決めていないがもう少ししたら決められる",
               "to": "4"
           },
           {

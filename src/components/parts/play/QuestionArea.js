@@ -11,9 +11,9 @@ function QuestionArea({ question }) {
 
   return(
     <Container>
-        <Paper sx={{display: "flex",flexFlow:"column",justifyContent: "center",minHeight:'400px',textAlign:"center"}}>
+        <Paper sx={{display: "flex",flexFlow:"column",justifyContent: "center",minHeight:'200px',textAlign:"center"}}>
         
-          <Typography variant="h4"  sx={{whiteSpace: "pre-wrap"}}>
+          <Typography variant="h5"  sx={{whiteSpace: "pre-wrap"}}>
                     {question}
           </Typography>
     
