@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import { useCallback } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 
-const handleStyle = { left: 10 };
+import { handleStyle } from '../../css/handleStyle';
 
     
 
@@ -14,7 +14,7 @@ function ResultNode({ data }) {
 
   return (
     <div className="result-node">
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Top} style={handleStyle}/>
       <TextField id="text" name="text" onChange={onChange} ariant='outlined' multiline
                         maxRows={4} margin='normal' placeholder='メッセージを入力してください'/>
 

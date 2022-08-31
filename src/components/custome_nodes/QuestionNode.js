@@ -1,14 +1,15 @@
 
-import { useState } from 'react';
+import { useState,useCallback } from 'react';
 import { Handle, Position, useUpdateNodeInternals} from 'react-flow-renderer';
-
+import { Box } from '@mui/material';
+import { handleStyle } from '../../css/handleStyle';
 const handleContainerStyle = {
   display: "flex",
-  justifyContent: "space-around"
+  justifyContent: "space-around",
+
+
 }
-const handleStyle = {
-  position: "static"
-}
+
 
 
 const AnswerHandle = ({num}) => {
@@ -24,7 +25,8 @@ const AnswerHandle = ({num}) => {
 
   } 
   return(<div>
-    <Handle type="source" position={Position.Bottom} id={`out${num}`} onConnect={onConnect} style={handleStyle} isValidConnection={isValid} />
+    <Handle type="source" position={Position.Bottom} id={`out${num}`} onConnect={onConnect} 
+    style={handleStyle} isValidConnection={isValid} />
     </div>
   )
 }
@@ -47,6 +49,7 @@ const QuestionNode = ({ data,id }) => {
     setAnswerHandleCount(answerHandleCount+1)
     updateNodeInternals(nodeId)
   }
+
   const onClickRemoveAnswer = (evt) => {
     if(answerHandleCount > 1){
       setAnswerHandleCount(answerHandleCount-1)

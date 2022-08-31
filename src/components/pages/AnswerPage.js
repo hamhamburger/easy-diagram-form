@@ -1,11 +1,8 @@
-import React,{useState,useCallback,memo,useLayoutEffect,} from 'react';
-import { styled } from '@mui/material/styles';
-import Result from '../parts/play/Result';
-import { Button,Container,Box,Paper,Grid, bottomNavigationActionClasses } from '@mui/material';
-import QuestionArea from '../parts/play/QuestionArea';
+import React,{useState,memo,useLayoutEffect,} from 'react';
+
 import AnswerForm from '../blocks/AnswerForm';
 
-const useWindowSize = () => {
+const useWindowSize = memo(() => {
   const [size, setSize] = useState([0, 0]);
   useLayoutEffect(() => {
     const updateSize = () => {
@@ -18,7 +15,7 @@ const useWindowSize = () => {
     return () => window.removeEventListener('resize', updateSize);
   }, []);
   return size;
-};
+})
 
 
 
