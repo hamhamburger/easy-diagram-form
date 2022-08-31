@@ -7,6 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AnswerPage from '../pages/AnswerPage.js'
+import AnswerForm from './AnswerForm.js';
 
 
 const TryDialog = memo(({children,questions}) => {
@@ -26,17 +27,16 @@ const TryDialog = memo(({children,questions}) => {
     <div>
       <div onClick={handleClickOpen}>{children}</div>
       
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+      <Dialog open={open} onClose={handleClose} fullWidth >
         <DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>閉じる</Button>
+        </DialogActions>
           <DialogContentText>
           </DialogContentText>
-          <AnswerPage questions={questions}></AnswerPage>
+          <AnswerForm questions={questions} height={"85vh"}></AnswerForm>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
+
       </Dialog>
     </div>
   );

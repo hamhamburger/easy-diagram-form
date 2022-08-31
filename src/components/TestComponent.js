@@ -1,5 +1,5 @@
 import React,{useState} from "react";    
-import Button from '@mui/material/Button';
+import {Button,Box} from '@mui/material';
 
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { ErrorSharp } from "@mui/icons-material";
@@ -14,12 +14,13 @@ export default function TestComponent() {
 };
  
   return (
-    <>
-    <TryDialog><Button >Click Me</Button></TryDialog>
-
-
-    
-    </>
+    <Box sx={{display:"grid",gridTemplateColumns:"1fr",gridTemplateRows:"auto 1fr auto",minHeight:"100vh"}}>
+      <h1>Header</h1>
+      <Box>
+        <p>content</p>
+      </Box>
+      <footer><p>footer</p></footer>
+    </Box>
   );
  }
  
