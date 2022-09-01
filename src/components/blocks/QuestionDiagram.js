@@ -15,7 +15,7 @@ import { Button, Fab, Box,} from "@mui/material";
 import ResultNode from "../custome_nodes/ResultNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
 import AddNodeDialog from "./AddNodeDialog";
-import TestDialog from "./TestDialog";
+
 
 import Footer from "../blocks/Footer";
 import QuestionDialog from "../blocks/QuestionDialog";
@@ -37,13 +37,13 @@ const initialNodes = [
   {
     id: '0',
     type: 'question',
-    position: { x: 300, y: 0 },
+    position: { x: 300, y: -20 },
     data: {first:true},
   },
   {
     id: '1',
     type: 'result',
-    position: { x: 100, y: 500 },
+    position: { x: 100, y: 800 },
     data: {
       label:""
     },
@@ -51,7 +51,7 @@ const initialNodes = [
   {
     id: '2',
     type: 'result',
-    position: { x: 500, y: 500 },
+    position: { x: 500, y: 800 },
     data: {
       label:""
     },
@@ -109,7 +109,7 @@ const QuestionDiagram = ()=>{
       type:type,
       position: {
         x: 300,
-        y: 200*nodeId,
+        y: 150*(nodeId-2),
       },
       data: {
         label:""
