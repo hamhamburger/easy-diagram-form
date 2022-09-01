@@ -5,5 +5,8 @@ export const handleStyle = {
     height: "6px",
     width: "1rem",
     height: "1rem",
-    position:"static"
+    position:"static",
+    "&:hover": {
+        background: "#white"
+      }
 }

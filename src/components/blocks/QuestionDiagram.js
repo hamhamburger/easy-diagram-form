@@ -6,7 +6,7 @@ import createDataStructure from "../../lib/createDataStructure";
 
 import React from "react";
 
-import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge, applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
+import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge,Background ,applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
 import { useCallback, useState, useMemo,useRef} from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -14,9 +14,8 @@ import DoneIcon from '@mui/icons-material/Done';
 import { Button, Fab, Box,} from "@mui/material";
 import ResultNode from "../custome_nodes/ResultNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
-
-
-
+import AddNodeDialog from "./AddNodeDialog";
+import TestDialog from "./TestDialog";
 
 import Footer from "../blocks/Footer";
 import QuestionDialog from "../blocks/QuestionDialog";
@@ -28,65 +27,34 @@ const Style = {
 };
 
 
-
+const fabStyle = {marginBottom:"5px",width:{xs:45,sm:60},height:{xs:45,sm:60}}
 
 
 
 
 const initialNodes = [
-  // {
-  //   id: '0',
-  //   type: 'question',
-  //   position: { x: 400, y: 200 },
-  //   data: { label: 'やっぱり？'},
-  // },
-  // {
-  //   id: '1',
-  //   type: 'question',
-  //   position: { x: 400, y: 200 },
-  //   data: { label: '二本足? 四本足?'},
-  // },
-  // {
-  //   id: '2',
-  //   type: 'question',
-  //   position: { x: 200, y: 200 },
-  //   data: { label: '可愛い?'},
-  // },
-  // {
-  //   id: '3',
-  //   type: 'question',
-  //   position: { x: 300, y: 200 },
-  //   data: { label: '人間?　機械?' },
-  // },
+ 
   {
     id: '0',
     type: 'question',
-    position: { x: 400, y: 200 },
-    data: { label: '足は何本？'},
+    position: { x: 300, y: 0 },
+    data: {first:true},
   },
   {
     id: '1',
     type: 'result',
-    position: { x: 400, y: 400 },
-    data: {},
+    position: { x: 100, y: 500 },
+    data: {
+      label:""
+    },
   },
   {
     id: '2',
     type: 'result',
-    position: { x: 400, y: 500 },
-    data: {},
-  },
-  {
-    id: '3',
-    type: 'result',
-    position: { x: 400, y: 500 },
-    data: {},
-  },
-  {
-    id: '4',
-    type: 'result',
-    position: { x: 400, y: 500 },
-    data: {},
+    position: { x: 500, y: 500 },
+    data: {
+      label:""
+    },
   },
 
 ];
@@ -109,8 +77,6 @@ const QuestionDiagram = ()=>{
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
-  const [nodeId, setNodeId] = useState(nodes.length)
   const nodeTypes = useMemo(
     () => ({
       question: QuestionNode,result: ResultNode 
@@ -135,28 +101,24 @@ const QuestionDiagram = ()=>{
     },
     [setEdges]
   );
-  const addNode = (data) => {
-
-  
-    const question_label = prompt("質問を入力して下さい")
-    setNodeId(nodeId+1)
-    const id = `${nodeId}`;
+  const addNode = (type) => {
+    const nodeId =nodes.length
+    
     const newNode = {
-      id,
-      type:'question',
+      id:String(nodeId),
+      type:type,
       position: {
-        x: 400,
-        y: 300,
+        x: 300,
+        y: 200*nodeId,
       },
       data: {
-        label: `Node ${id}`,label: question_label
+        label:""
       },
     };
     reactFlowInstance.addNodes(newNode);
   }
 
- 
-
+  
 
   
 
@@ -184,7 +146,8 @@ const QuestionDiagram = ()=>{
   
   const parsedQuestions = createDataStructure(edges,nodes)
   /* 
-  レンダリング時にいちいちこの関数を呼び出しparsedQuestionsをセットしているのは非常に筋が悪いように思えるが今のところどこに置くべきかわからない
+  レンダリング時にいちいちこの関数を呼び出しparsedQuestionsをセットしているのは効率が悪いように思えるが今のところどこに置くべきかわからない
+  本来edgeが変更された場合にのみ呼び出せばいいと思うが
   onEdgeUpdateEndやonConnectのコールバックに置いてもその関数が呼ばれている時点ではedgesに新しく作られたedgeが反映されていない
  */
 
@@ -202,32 +165,44 @@ const QuestionDiagram = ()=>{
           onEdgeUpdateEnd={onEdgeUpdateEnd}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
-          fitView
+          defaultZoom={0.1}
+
           style={Style}
-         ></ReactFlow>
+         >
+          <Background />
+
+         </ReactFlow>
      
-     <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",position:"absolute",     bottom:"40px",right:"30px",  zIndex:10}}>
-            <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center",marginTop:"20px"}}>
-              <Fab color="primary" onClick={addNode}  aria-label="add" sx={{marginBottom:"5px"}}>
+     <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"10px",sm:"20px"}, zIndex:10}}>
+
+            <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+              <Fab color="primary" aria-label="add" sx={fabStyle}>
                 <DoneIcon />
               </Fab>
               <label>保存する</label>
             </Box>
+
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
               <TryDialog questions={parsedQuestions}>
-                <Fab color="primary" aria-label="add" sx={{marginBottom:"5px"}}>
-                <PlayArrowIcon />
-              </Fab>
+                <Fab color="primary" aria-label="add" sx={fabStyle}>
+                  <PlayArrowIcon />
+                </Fab>
               </TryDialog>
               <label>試してみる</label>
             </Box>
-            <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center",marginTop:"20px"}}>
-              <Fab color="primary" onClick={addNode}  aria-label="add" sx={{marginBottom:"5px"}}>
-                <AddIcon />
-              </Fab>
-              <label>質問を追加する</label>
-            </Box>
-          </Box>
+
+            
+              <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+                <AddNodeDialog onClick={addNode}>
+                  <Fab color="primary" aria-label="add" sx={fabStyle}>
+                    <AddIcon />
+                  </Fab>
+                </AddNodeDialog>  
+                  <label>画面を追加する</label>
+              </Box>
+            
+            
+      </Box>
       
  
     </div>

@@ -6,11 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import AnswerPage from '../pages/AnswerPage.js'
-import AnswerForm from './AnswerForm.js';
 
 
-const TryDialog = memo(({children,questions}) => {
+const TestDialog = memo(({children,onClick}) => {
 
   const [open, setOpen] = useState(false);
 
@@ -29,11 +27,9 @@ const TryDialog = memo(({children,questions}) => {
       <Dialog open={open} onClose={handleClose} fullWidth >
         <DialogContent>
         <DialogActions>
+          <Button onClick={handleClose}>質問を追加する</Button>
           <Button onClick={handleClose}>閉じる</Button>
         </DialogActions>
-          <DialogContentText>
-          </DialogContentText>
-          <AnswerForm questions={questions} height={"85vh"}></AnswerForm>
         </DialogContent>
 
       </Dialog>
@@ -41,4 +37,4 @@ const TryDialog = memo(({children,questions}) => {
   );
 }
 )
-export default TryDialog
+export default TestDialog

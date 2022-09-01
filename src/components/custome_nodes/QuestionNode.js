@@ -1,12 +1,14 @@
 
 import { useState,useCallback } from 'react';
 import { Handle, Position, useUpdateNodeInternals} from 'react-flow-renderer';
-import { Box } from '@mui/material';
-import { handleStyle } from '../../css/handleStyle';
+import { Box, TextField,Fab,Container} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import OpenWithIcon from '@mui/icons-material/OpenWith';
+import { handleStyle } from '../css/handleStyle';
 import InputHandle from '../handles/InputHandle';
 const handleContainerStyle = {
-  display: "flex",
-  justifyContent: "space-around",
+ 
 
 
 }
@@ -34,13 +36,14 @@ const AnswerHandle = ({num}) => {
 
 
 
-const QuestionNode = ({ data,id }) => {
-  const {label} = data
-  const inputHandleCount = 4
+const QuestionNode = ({ data,id}) => {
+  const {label,first} = data
+  const inputHandleCount = first ? 0 : 4
   const [answerHandleCount,setAnswerHandleCount] = useState(2)
   const nodeId = id
   const updateNodeInternals = useUpdateNodeInternals();
-
+  console.log(data)
+  const placeholder = first ? 'ここを起点に別の質問へと分岐させていきます\n最初の質問を入力して下さい' : "質問を入力して下さい"
 
   const onClickAddAnswer = useCallback((evt) => {
     setAnswerHandleCount(answerHandleCount+1)
@@ -54,10 +57,13 @@ const QuestionNode = ({ data,id }) => {
     }
   },[setAnswerHandleCount,answerHandleCount,nodeId,updateNodeInternals])
 
+  const onChange = useCallback((evt) => {
+    data.label = evt.target.value;
+  }, []);
 
   return (
-    <div className="question-node">
-      <div className="inputHandleContainer" style={handleContainerStyle}>
+    <Box className="question-node" sx={{display:"flex",flexDirection:"column",justifyContent:"space-around",}}>
+      <Box className="inputHandleContainer" sx={{ display: "flex",justifyContent: "space-around",}}>
         {Array(inputHandleCount).fill().map((_,i)=>{
            return(
              <InputHandle num={i} key={`${nodeId}input${i}`} nodeId={nodeId}/>
@@ -65,16 +71,30 @@ const QuestionNode = ({ data,id }) => {
             }
           )
         }
-      </div>
-      <Box sx={{backgroundColor:"rgb(66, 165, 245)",boxShadow: "rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px",textAlign:"center",maxWidth:"20rem"}}>
-        <p>{label}</p>
-        <div className='outputButtonContainer'>
-          <button onClick={onClickRemoveAnswer}>RemoveOut</button>
-          <button onClick={onClickAddAnswer}>AddOut</button>
-        </div>
+      </Box>
+      <Box sx={{display:"flex",justifyContent:"center"}}>
+        <Fab size="small" aria-label="move" >
+                <OpenWithIcon />
+        </Fab>
+      </Box>
+      <Box >
+        <TextField id="text" name="text" onChange={onChange} variant='outlined' multiline
+                        maxRows={4} margin='normal' placeholder={placeholder} sx={{width:220,backgroundColor:"white",borderRadius:0}}/>
+
+      
+        <Box sx={{display:"flex",justifyContent:"center",gap:"1rem"}}>
+            <Fab variant="extended" size="small" color="primary" aria-label="add" onClick={onClickRemoveAnswer}>
+              <RemoveIcon sx={{ mr: 1 }} />
+              削除
+            </Fab>
+            <Fab variant="extended" size="small" color="primary" aria-label="add" onClick={onClickAddAnswer}>
+              <AddIcon sx={{ mr: 1 }} />
+              追加
+            </Fab>
+        </Box>
       </Box>
 
-      <div className="outputHandleContainer" style={handleContainerStyle}>
+      <Box className="outputHandleContainer" sx={{ display: "flex",justifyContent: "space-around",}}>
         {Array(answerHandleCount).fill().map((_,i)=>{
            return(
              <AnswerHandle num={i} key={`${nodeId}output${i}`} nodeId={nodeId}/>
@@ -82,8 +102,8 @@ const QuestionNode = ({ data,id }) => {
             }
           )
         }
-      </div>
-    </div>
+      </Box>
+    </Box>
       );
   }
 
