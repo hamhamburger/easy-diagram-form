@@ -23,7 +23,7 @@ function createDataStructure(edges,nodes) {
       to:edge.target
     })
   })
-  console.log(questions)
+
   return questions
 }
 

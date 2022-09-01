@@ -59,9 +59,6 @@ const initialNodes = [
 
 ];
 
-const initialEdges = [
-];
-
 
 
 
@@ -173,13 +170,13 @@ const QuestionDiagram = ()=>{
 
          </ReactFlow>
      
-     <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"10px",sm:"20px"}, zIndex:10}}>
+     <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
 
             <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
               <Fab color="primary" aria-label="add" sx={fabStyle}>
                 <DoneIcon />
               </Fab>
-              <label>保存する</label>
+              <label>保存</label>
             </Box>
 
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
@@ -188,7 +185,7 @@ const QuestionDiagram = ()=>{
                   <PlayArrowIcon />
                 </Fab>
               </TryDialog>
-              <label>試してみる</label>
+              <label>試す</label>
             </Box>
 
             
@@ -198,7 +195,7 @@ const QuestionDiagram = ()=>{
                     <AddIcon />
                   </Fab>
                 </AddNodeDialog>  
-                  <label>画面を追加する</label>
+                  <label>追加</label>
               </Box>
             
             

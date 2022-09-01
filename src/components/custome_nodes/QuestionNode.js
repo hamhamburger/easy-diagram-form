@@ -17,8 +17,7 @@ const QuestionNode = ({ data,id}) => {
 
   const nodeId = id
   const updateNodeInternals = useUpdateNodeInternals();
-  console.log(data)
-  const placeholder = first ? 'ここを起点に別の質問へと分岐します\n最初の質問を入力して下さい' : "質問を入力して下さい"
+  const placeholder = first ? 'この質問を起点に別の質問へと分岐していきます\n最初の質問を入力して下さい' : "質問を入力して下さい"
 
 
   const handle = first ? null : <TopHandle type="target" position={Position.Top}/>
@@ -35,7 +34,7 @@ const QuestionNode = ({ data,id}) => {
 
       <Box >
         <TextField id="text" name="text" onChange={onChange} variant='outlined' multiline
-                        maxRows={4} margin='normal' placeholder={placeholder} sx={{width:220,backgroundColor:"white",borderRadius:0}}/>
+                        maxRows={12} minRows={4} margin='normal' placeholder={placeholder} sx={{width:220,backgroundColor:"white",borderRadius:0}} inputProps={{style:{textAlign:"center"}}}/>
       </Box>
 
       <BottomHandle type="source" position={Position.Bottom}/>

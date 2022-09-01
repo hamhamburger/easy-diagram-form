@@ -46,7 +46,8 @@ const AnswerForm = memo(({questions,height}) => {
             
          
                       <Box sx={{marginTop:"20px"}}>
-                        <QuestionArea question={currentQuestion.label}/>
+                        <QuestionArea 
+                        question={currentQuestion.label ? currentQuestion.label : "質問が入力されていません"}/>
                       </Box>
             
                     
