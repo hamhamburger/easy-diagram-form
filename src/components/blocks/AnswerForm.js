@@ -13,9 +13,9 @@ const AnswerForm = memo(({questions,height}) => {
   const [questionIndexHistory, setQuestionIndexHistory] = useState([0]) 
   const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
 
-  const goTo = (id) => {
+  const goTo = useCallback((id) => {
     setQuestionIndexHistory([...questionIndexHistory,id])
-  }
+  },[setQuestionIndexHistory])
 
 
 
@@ -23,18 +23,15 @@ const AnswerForm = memo(({questions,height}) => {
 
 
 
-  const back = () => {
+  const back = useCallback(() => {
     if  (questionIndexHistory.length > 1)
     {
       const new_arr = questionIndexHistory.slice(0,questionIndexHistory.length)
       new_arr.pop()
-
       setQuestionIndexHistory(new_arr)
-    }else{
-      
     }
 
-  }
+  },[setQuestionIndexHistory,questionIndexHistory])
 
   if(currentQuestion.type === 'result'){
       return(
@@ -54,12 +51,14 @@ const AnswerForm = memo(({questions,height}) => {
             
             
                       </Container>
-                      {questionIndexHistory.length > 1 && 
-                     <Box className="footer">
-                        <Button variant="contained" fullWidth sx={{height:{xs:50,sm:100},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
-                            {"戻る"}
-                        </Button>
-                      </Box>}
+                      {
+                        questionIndexHistory.length > 1 && 
+                          <Box className="footer">
+                            <Button variant="contained" fullWidth sx={{height:{xs:50,sm:100},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
+                              {"戻る"}
+                            </Button>
+                          </Box>
+                      }
             
             </Container>
 
@@ -82,7 +81,7 @@ const AnswerForm = memo(({questions,height}) => {
                             {
                               currentQuestion.arrows.map((arrow=>{
                                 return(
-                                  <Grid item xs={12} sm={6} >
+                                  <Grid item xs={12} sm={6} key={arrow.answer}>
                                       <Button variant="contained" fullWidth sx={{height:{xs:50,sm:80},fontSize:"1rem"}} onClick={()=>goTo(arrow.to)}>
                                         {arrow.answer}
                                       </Button>

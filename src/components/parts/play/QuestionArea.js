@@ -13,7 +13,7 @@ function QuestionArea({ question }) {
     <Container>
         <Paper sx={{display: "flex",flexFlow:"column",justifyContent: "center",minHeight:'200px',textAlign:"center",overflowY:"scroll",maxHeight:"40vh"}}>
           <Typography variant="h5"  sx={{whiteSpace: "pre-wrap",wordBreak:"break-all",}}>
-                    {question}
+          {question ? question : "質問が入力されていません"}
           </Typography>
         </Paper>      
       

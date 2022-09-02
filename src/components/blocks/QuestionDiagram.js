@@ -2,11 +2,11 @@
 
 import TryDialog from "./TryDialog";
 import createDataStructure from "../../lib/createDataStructure";
-
+import uploadQuestionData from "../../lib/uploadQuestionData";
 import React from "react";
 
 import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge,Background,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
-import { useCallback,  useMemo,useRef} from 'react';
+import { useCallback,  useMemo, useRef, useState} from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DoneIcon from '@mui/icons-material/Done';
@@ -14,6 +14,7 @@ import { Fab, Box,} from "@mui/material";
 import ResultNode from "../custome_nodes/ResultNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
 import AddNodeDialog from "./AddNodeDialog";
+import MessageDialog from "./MessageDialog";
 
 
 
@@ -22,7 +23,7 @@ const Style = {
   height:"100vh"
 };
 const fabStyle = {marginBottom:"5px",width:{xs:45,sm:60},height:{xs:45,sm:60}}
-
+let parsedQuestions = []
 
 
 const initialNodes = [
@@ -67,6 +68,7 @@ const QuestionDiagram = ()=>{
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [messageForDialog, setMessageForDialog] = useState(null)
   const nodeTypes = useMemo(
     () => ({
       question: QuestionNode,result: ResultNode 
@@ -84,6 +86,7 @@ const QuestionDiagram = ()=>{
     },
     [setEdges]
   );
+
   const addNode = useCallback((type) => {
     const nodeId =nodes.length
     
@@ -109,6 +112,11 @@ const QuestionDiagram = ()=>{
   },[reactFlowInstance,nodes])
 
   
+  async function upload() {
+    const result = await uploadQuestionData(parsedQuestions)
+    setMessageForDialog(result.message)
+  }
+
 
   
 
@@ -133,6 +141,11 @@ const QuestionDiagram = ()=>{
 
   }, []);
 
+  
+  // useEffect(() => {
+  //   parsedQuestions = createDataStructure(edges,nodes)
+  
+  // }, [edges,nodes])
   
   const parsedQuestions = createDataStructure(edges,nodes)
   /* 
@@ -162,37 +175,37 @@ const QuestionDiagram = ()=>{
 
          </ReactFlow>
      
-     <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
+          <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
 
-            <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
-              <Fab onClick={save} color="primary" aria-label="add" sx={fabStyle} >
-                <DoneIcon />
-              </Fab>
-              <label>保存</label>
+                  <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+                    <Fab onClick={upload} color="primary" aria-label="add" sx={fabStyle} >
+                      <DoneIcon />
+                    </Fab>
+                    <label>保存</label>
+                  </Box>
+
+                  <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+                    <TryDialog questions={parsedQuestions}>
+                      <Fab color="primary" aria-label="add" sx={fabStyle}>
+                        <PlayArrowIcon />
+                      </Fab>
+                    </TryDialog>
+                    <label>試す</label>
+                  </Box>
+
+                  
+                    <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+                      <AddNodeDialog onClick={addNode}>
+                        <Fab color="primary" aria-label="add" sx={fabStyle}>
+                          <AddIcon />
+                        </Fab>
+                      </AddNodeDialog>  
+                        <label>追加</label>
+                    </Box>
+                  
+                  
             </Box>
-
-            <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-              <TryDialog questions={parsedQuestions}>
-                <Fab color="primary" aria-label="add" sx={fabStyle}>
-                  <PlayArrowIcon />
-                </Fab>
-              </TryDialog>
-              <label>試す</label>
-            </Box>
-
-            
-              <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
-                <AddNodeDialog onClick={addNode}>
-                  <Fab color="primary" aria-label="add" sx={fabStyle}>
-                    <AddIcon />
-                  </Fab>
-                </AddNodeDialog>  
-                  <label>追加</label>
-              </Box>
-            
-            
-      </Box>
-      
+            {/* <MessageDialog message={messageForDialog} /> */}
  
     </div>
 
