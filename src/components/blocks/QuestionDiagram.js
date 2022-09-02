@@ -25,7 +25,6 @@ const fabStyle = {marginBottom:"5px",width:{xs:45,sm:60},height:{xs:45,sm:60}}
 
 
 
-
 const initialNodes = [
  
   {
@@ -85,7 +84,7 @@ const QuestionDiagram = ()=>{
     },
     [setEdges]
   );
-  const addNode = (type) => {
+  const addNode = useCallback((type) => {
     const nodeId =nodes.length
     
     const newNode = {
@@ -100,7 +99,14 @@ const QuestionDiagram = ()=>{
       },
     };
     reactFlowInstance.addNodes(newNode);
-  }
+  },[reactFlowInstance,nodes])
+
+  
+  const save = useCallback(async () => {
+    console.log(parsedQuestions)
+    
+    
+  },[reactFlowInstance,nodes])
 
   
 
@@ -159,7 +165,7 @@ const QuestionDiagram = ()=>{
      <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
 
             <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
-              <Fab color="primary" aria-label="add" sx={fabStyle}>
+              <Fab onClick={save} color="primary" aria-label="add" sx={fabStyle} >
                 <DoneIcon />
               </Fab>
               <label>保存</label>
