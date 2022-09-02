@@ -10,6 +10,7 @@ const TopHandle = styled(Handle)`
   border-radius: 10px 10px 0px 0px;
   height: 20px;
   width: calc(100% + 2px);
+  z-index:70;
   &:hover {
     background: #e77d8f;
   }

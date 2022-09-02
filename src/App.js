@@ -2,11 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import HomePage from './components/pages/HomePage';
-
 import NotFound from './components/pages/NotFound';
-
 import QuestionCreatePage from './components/pages/QuestionCreatePage';
-
 import AnswerPage from './components/pages/AnswerPage';
 
 
@@ -16,9 +13,12 @@ import AnswerPage from './components/pages/AnswerPage';
 const questions = [
   {
       "id": "0",
-      "label": "やっぱり？",
+      "label": "やっぱり？nagaaaaaaaaaaejfeafesfocp\nojdawef;\nceps[\nfdjewl\n]n\nc\nmkdporvldfm;kmbi\n\n\n\n\n\rn\gfsel\n\nn\blkdmvf;rbfkl\n\n\nfefaawfofkeafpsefpoersgjp/n/n/n/n/nn/n/gpjgvp;skmlpdko",
       "type": "question",
-      "arrows": []
+      "arrows": [{
+        "answer": "始める",
+        "to": "1"
+    },]
   },
   {
       "id": "1",
@@ -148,9 +148,7 @@ function App() {
       <Routes>
 
        <Route path='/start' element={<AnswerPage  questions={questions}/>}></Route>
-       <Route path='/create' element={<QuestionCreatePage />}></Route>
-       <Route path='/home' element={<HomePage />}></Route>
-       <Route path="*" element={<NotFound />} />
+       <Route path='*' element={<QuestionCreatePage />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,32 +1,26 @@
 
-// for debugging
-import TestFlowComponent from "../TestFlowComponent";
+
 import TryDialog from "./TryDialog";
 import createDataStructure from "../../lib/createDataStructure";
 
 import React from "react";
 
-import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge,Background ,applyEdgeChanges, applyNodeChanges,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
-import { useCallback, useState, useMemo,useRef} from 'react';
+import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge,Background,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
+import { useCallback,  useMemo,useRef} from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DoneIcon from '@mui/icons-material/Done';
-import { Button, Fab, Box,} from "@mui/material";
+import { Fab, Box,} from "@mui/material";
 import ResultNode from "../custome_nodes/ResultNode";
 import QuestionNode from "../custome_nodes/QuestionNode";
 import AddNodeDialog from "./AddNodeDialog";
 
 
-import Footer from "../blocks/Footer";
-import QuestionDialog from "../blocks/QuestionDialog";
-import ButtonEdge from "../custome_edge/ButtonEdge";
 
 const Style = {
-  backgroundColor: '#B8CEFF',
+  backgroundColor: 'lightblue',
   height:"100vh"
 };
-
-
 const fabStyle = {marginBottom:"5px",width:{xs:45,sm:60},height:{xs:45,sm:60}}
 
 
@@ -80,13 +74,6 @@ const QuestionDiagram = ()=>{
     }),
     []
   );
-  const edgeTypes = useMemo(
-    () => ({
-      buttonedge: ButtonEdge 
-    }),
-    []
-  );
-
 
   const onConnect = useCallback(
     (connection) => {
@@ -119,7 +106,7 @@ const QuestionDiagram = ()=>{
 
   
 
-  //edgeの処理
+
   const edgeUpdateSuccessful = useRef(true);
 
   const onEdgeUpdateStart = useCallback(() => {
@@ -161,7 +148,6 @@ const QuestionDiagram = ()=>{
           onEdgeUpdateStart={onEdgeUpdateStart}
           onEdgeUpdateEnd={onEdgeUpdateEnd}
           nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
           defaultZoom={0.1}
 
           style={Style}
