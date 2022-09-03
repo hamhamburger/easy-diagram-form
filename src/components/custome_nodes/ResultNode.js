@@ -1,11 +1,11 @@
 import { TextField } from '@mui/material';
-import { useCallback } from 'react';
+import { useCallback, memo } from 'react';
 import { Position } from 'react-flow-renderer';
 import TopHandle from '../handles/TopHandle';
 
     
 
-function ResultNode({ data }) {
+const ResultNode = memo(({ data }) => {
   
   const onChange = useCallback((evt) => {
     data.label = evt.target.value;
@@ -31,5 +31,5 @@ function ResultNode({ data }) {
 
     </div>
   );
-}
+})
 export default ResultNode;

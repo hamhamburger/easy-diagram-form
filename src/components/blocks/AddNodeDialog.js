@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 
 const AddNodeDialog = memo(({children,onClick}) => {
-
+  
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {

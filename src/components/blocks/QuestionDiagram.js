@@ -6,7 +6,7 @@ import uploadQuestionData from "../../lib/uploadQuestionData";
 import React from "react";
 
 import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge,Background,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
-import { useCallback,  useMemo, useRef, useState} from 'react';
+import { useCallback,  useMemo, useRef, useState, useEffect} from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DoneIcon from '@mui/icons-material/Done';
@@ -145,14 +145,23 @@ const QuestionDiagram = ()=>{
   // useEffect(() => {
   //   parsedQuestions = createDataStructure(edges,nodes)
   
-  // }, [edges,nodes])
-  
-  const parsedQuestions = createDataStructure(edges,nodes)
+  // }, [nodes])
+  parsedQuestions = createDataStructure(edges,nodes)
+  // const parsedQuestions = createDataStructure(edges,nodes)
   /* 
   レンダリング時にいちいちこの関数を呼び出しparsedQuestionsをセットしているのは効率が悪いように思えるが今のところどこに置くべきかわからない
   本来edgeが変更された場合にのみ呼び出せばいいと思うが
   onEdgeUpdateEndやonConnectのコールバックに置いてもその関数が呼ばれている時点ではedgesに新しく作られたedgeが反映されていない
+  useEffectをedgesとnodesの更新をフックにして使うとよりパフォーマンスが悪化した
  */
+
+  // const parseQuestions = useCallback(
+  //   () => {
+  //     parsedQuestions = createDataStructure(edges,nodes)
+  //   },
+  //   [parsedQuestions],
+  // )
+  
 
   return(
     <div>
@@ -205,7 +214,7 @@ const QuestionDiagram = ()=>{
                   
                   
             </Box>
-            {/* <MessageDialog message={messageForDialog} /> */}
+            
  
     </div>
 

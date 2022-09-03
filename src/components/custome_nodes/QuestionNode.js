@@ -1,5 +1,5 @@
 
-import { useCallback } from 'react';
+import { useCallback ,memo} from 'react';
 import { Position, useUpdateNodeInternals} from 'react-flow-renderer';
 import { Box, TextField,Fab,Container} from '@mui/material';
 
@@ -12,7 +12,7 @@ import TopHandle from '../handles/TopHandle';
 
 
 
-const QuestionNode = ({ data,id}) => {
+const QuestionNode = memo(({ data,id}) => {
   const {label,first} = data
 
   const nodeId = id
@@ -41,6 +41,6 @@ const QuestionNode = ({ data,id}) => {
 
     </Box>
       );
-  }
+  })
 
 export default QuestionNode;

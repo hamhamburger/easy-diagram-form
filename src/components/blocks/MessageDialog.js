@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-const MessageDialog = memo(({message}) => {
+const MessageDialog = ({message}) => {
   
   const [open, setOpen] = useState(true);
 
@@ -36,5 +36,5 @@ const MessageDialog = memo(({message}) => {
    
   );
 }
-)
+
 export default MessageDialog
