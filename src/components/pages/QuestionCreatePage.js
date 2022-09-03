@@ -1,10 +1,7 @@
 
 import QuestionDiagram from '../blocks/QuestionDiagram';
-
-const Style = {
-  backgroundColor: '#B8CEFF',
-  height:"100vh"
-};
+import ButtonAppBar from '../blocks/ButtonAppBar';
+import { Box } from '@mui/system';
 
 
 
@@ -16,7 +13,10 @@ const Style = {
 
 const QuestionCreatePage = ()=>{
   return(
-    <QuestionDiagram />
+    <Box sx={{height:"100vh",display: "grid",gridTemplateColumns: "1fr",gridTemplateRows:"auto 1fr"}}>
+      <ButtonAppBar />
+      <QuestionDiagram />
+    </Box>
   )
 }
       

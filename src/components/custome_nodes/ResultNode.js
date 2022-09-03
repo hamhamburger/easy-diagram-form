@@ -6,7 +6,7 @@ import TopHandle from '../handles/TopHandle';
     
 
 const ResultNode = memo(({ data }) => {
-  
+
   const onChange = useCallback((evt) => {
     data.label = evt.target.value;
   }, []);

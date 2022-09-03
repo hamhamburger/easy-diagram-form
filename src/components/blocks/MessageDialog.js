@@ -19,13 +19,10 @@ const MessageDialog = ({message}) => {
     setOpen(false);
   };
 
-  if(message){
-    setOpen(true)
-  }
   return (
  
       
-      <Dialog open={open} onClose={handleClose} fullWidth >
+      <Dialog open={open} onClose={handleClose} >
         <DialogContent>
         <DialogActions>
           <p>{message}</p>

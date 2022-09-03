@@ -63,7 +63,7 @@ const initialNodes = [
 
 
 const QuestionDiagram = ()=>{
-  
+  console.log("QuestionDiagram rendered")
   
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
