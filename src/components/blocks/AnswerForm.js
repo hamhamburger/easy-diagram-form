@@ -1,9 +1,8 @@
 
 
 import React,{useState,useCallback,memo} from 'react';
-import { styled } from '@mui/material/styles';
 
-import { Button,Container,Box,Paper,Grid, bottomNavigationActionClasses } from '@mui/material';
+import { Button,Container,Box,Grid, } from '@mui/material';
 import Result from '../parts/play/Result';
 import QuestionArea from '../parts/play/QuestionArea';
 const AnswerForm = memo(({questions,height}) => {
@@ -13,13 +12,10 @@ const AnswerForm = memo(({questions,height}) => {
   const [questionIndexHistory, setQuestionIndexHistory] = useState([0]) 
   const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
 
-  const goTo = useCallback((id) => {
+  const goTo = (id) => {
     setQuestionIndexHistory([...questionIndexHistory,id])
-  },[setQuestionIndexHistory])
-
-
-
-
+  }
+  //useCallbackを使うと上手く動かない
 
 
 
