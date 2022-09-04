@@ -122,7 +122,7 @@ const QuestionDiagram = ()=>{
       setMessageForDialog({body:result.message.body,url:result.message.url})
       if(result.status === "success"){
 
-        
+        setSavedRef(result.ref)
       }
       setOpenMessageDialog(true)
     }
