@@ -1,33 +1,29 @@
-import React,{memo,useState} from 'react';
+import React,{memo,useState,forwardRef} from 'react';
 
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button} from '@mui/material'
 
 
-const MessageDialog = ({message}) => {
+const MessageDialog = ({isOpen,message,onClick}) => {
   
-  const [open, setOpen] = useState(true);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
+ 
   const handleClose = () => {
-    setOpen(false);
-  };
 
+  };
+ 
   return (
  
       
-      <Dialog open={open} onClose={handleClose} >
-        <DialogContent>
-        <DialogActions>
+      <Dialog open={isOpen} onClose={handleClose} >
+        <DialogContent sx={{whiteSpace:"pre-wrap"}}>
           <p>{message}</p>
-        </DialogActions>
         </DialogContent>
+        <DialogActions>
+          
+          <Button onClick={onClick}>閉じる</Button>
+        </DialogActions>
+
 
       </Dialog>
    

@@ -3,10 +3,9 @@
 import TryDialog from "./TryDialog";
 import createDataStructure from "../../lib/createDataStructure";
 import uploadQuestionData from "../../lib/uploadQuestionData";
-import React from "react";
 
 import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge,Background,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
-import { useCallback,  useMemo, useRef, useState, useEffect} from 'react';
+import React, { useCallback,  useMemo, useRef, useState, useEffect, forwardRef } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DoneIcon from '@mui/icons-material/Done';
@@ -23,6 +22,8 @@ const Style = {
   height:"100vh"
 };
 const fabStyle = {marginBottom:"5px",width:{xs:45,sm:60},height:{xs:45,sm:60}}
+
+const RefMessageDialog = forwardRef(MessageDialog)
 let parsedQuestions = []
 
 
@@ -63,12 +64,17 @@ const initialNodes = [
 
 
 const QuestionDiagram = ()=>{
-  console.log("QuestionDiagram rendered")
+
   
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [messageForDialog, setMessageForDialog] = useState(null)
+  const [openMessageDialog, setOpenMessageDialog] = useState(false)
+  const [savedRef, setSavedRef] = useState(null)
+  const dialogRef = useRef(null)
+
+
   const nodeTypes = useMemo(
     () => ({
       question: QuestionNode,result: ResultNode 
@@ -86,6 +92,8 @@ const QuestionDiagram = ()=>{
     },
     [setEdges]
   );
+
+  
 
   const addNode = useCallback((type) => {
     const nodeId =nodes.length
@@ -107,19 +115,26 @@ const QuestionDiagram = ()=>{
   
   const save = useCallback(async () => {
     console.log(parsedQuestions)
-    
-    
+   
   },[reactFlowInstance,nodes])
 
   
   async function upload() {
-    const result = await uploadQuestionData(parsedQuestions)
+    const result = await uploadQuestionData(parsedQuestions,savedRef)
     setMessageForDialog(result.message)
+    if(result.status == "success"){
+
+      setSavedRef(result.ref)
+    }
+    setOpenMessageDialog(true)
+    
+    
+
   }
 
 
   
-
+  
 
   const edgeUpdateSuccessful = useRef(true);
 
@@ -212,9 +227,9 @@ const QuestionDiagram = ()=>{
                         <label>追加</label>
                     </Box>
                   
-                  
+ 
             </Box>
-            
+            <MessageDialog isOpen={openMessageDialog} message={messageForDialog} onClick={() => setOpenMessageDialog(false)}/>      
  
     </div>
 

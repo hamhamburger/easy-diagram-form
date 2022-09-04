@@ -39,7 +39,7 @@ const AnswerPage = () => {
          
           
   }, [])
-  console.log(questions)
+ 
   return( 
     questions ?
     <AnswerForm questions={questions} height={window.innerHeight}></AnswerForm>

@@ -1,6 +1,6 @@
 
 import QuestionDiagram from '../blocks/QuestionDiagram';
-import ButtonAppBar from '../blocks/ButtonAppBar';
+import Header from '../blocks/Header';
 import { Box } from '@mui/system';
 
 
@@ -14,7 +14,7 @@ import { Box } from '@mui/system';
 const QuestionCreatePage = ()=>{
   return(
     <Box sx={{height:"100vh",display: "grid",gridTemplateColumns: "1fr",gridTemplateRows:"auto 1fr"}}>
-      <ButtonAppBar />
+      <Header />
       <QuestionDiagram />
     </Box>
   )

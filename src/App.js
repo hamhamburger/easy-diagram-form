@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 
-import NotFound from './components/pages/NotFound';
+
 import QuestionCreatePage from './components/pages/QuestionCreatePage';
 import AnswerPage from './components/pages/AnswerPage';
-
-
+import AboutPage from './components/pages/AboutPage';
+import HelpPage from './components/pages/HelpPage';
 
 
 
@@ -19,8 +19,9 @@ function App() {
       <Routes>
 
        <Route path='/start/:id' element={<AnswerPage />}></Route>
-       <Route path='*' element={<QuestionCreatePage />}></Route>
-       <Route path='/test' element={<NotFound />}></Route>
+       <Route path='*' element={<HelpPage />}></Route>
+       <Route path='/create' element={<QuestionCreatePage />}></Route>
+       <Route path='/about' element={<AboutPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

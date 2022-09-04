@@ -1,8 +1,8 @@
 import db from "../firebase";
-import { addDoc, collection, getDocs ,getDoc ,setDoc ,doc} from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc} from "firebase/firestore";
 
 
-export default async function uploadQuestionData (questions) {
+export default async function uploadQuestionData (questions,savedRef) {
   let flag1 = false //最低一個は質問が入力されているか
   let flag2 = false //最低一個はメッセージが入力されているか
 
@@ -26,15 +26,29 @@ export default async function uploadQuestionData (questions) {
     }
   )
 
-  if(!(flag1 && flag2)) return {status:"failed",message:"質問とメッセージが正しく入力されていません"};
+  if(!(flag1 && flag2)) {
+    return {status:"failed",message:"質問とメッセージが正しく入力されていません"};
+  }
 
   const colRef = collection(db, "forms");
     try {
-      const docRef = await addDoc(colRef, {
+      let docRef
+      if(savedRef){
+        docRef = doc(db, "forms", savedRef);
+        await updateDoc(docRef, {
+          questions:questions
+        });
+
+      }
+      else {
+        docRef = await addDoc(colRef, {
         questions:questions
       });
+    
+    }
+    
   
-      return {status:"success",message:`保存に成功しました\nurlは ${window.location.href}start/${docRef.id}です`}
+      return {status:"success",ref:docRef.id,message:`保存に成功しました\n公開urlは\n ${window.location.origin}/start/${docRef.id}です`}
     } catch (e) {
       return {status:"failed",message:"保存に失敗しました"};
     }
