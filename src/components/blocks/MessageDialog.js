@@ -17,7 +17,8 @@ const MessageDialog = ({isOpen,message,onClick}) => {
       
       <Dialog open={isOpen} onClose={handleClose} >
         <DialogContent sx={{whiteSpace:"pre-wrap"}}>
-          <p>{message}</p>
+          <p>{message.body}</p>
+          <a href={message.url} target="_blank">{message.url}</a>
         </DialogContent>
         <DialogActions>
           

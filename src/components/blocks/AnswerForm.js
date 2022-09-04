@@ -3,8 +3,8 @@
 import React,{useState,useCallback,memo} from 'react';
 
 import { Button,Container,Box,Grid, } from '@mui/material';
-import Result from '../parts/play/Result';
-import QuestionArea from '../parts/play/QuestionArea';
+import Result from '../parts/start/Result';
+import QuestionArea from '../parts/start/QuestionArea';
 const AnswerForm = memo(({questions,height}) => {
   
   

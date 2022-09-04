@@ -69,7 +69,7 @@ const QuestionDiagram = ()=>{
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [messageForDialog, setMessageForDialog] = useState(null)
+  const [messageForDialog, setMessageForDialog] = useState({body:"",url:""})
   const [openMessageDialog, setOpenMessageDialog] = useState(false)
   const [savedRef, setSavedRef] = useState(null)
   
@@ -117,12 +117,12 @@ const QuestionDiagram = ()=>{
 
   
   async function upload() {
-    if(window.confirm("公開すると削除できません。（このページを開いている間は再度公開ボタンを押すことで修正ができます。）公開してもよろしいですか？")){
+    if(window.confirm("一度公開すると削除できません。（このページを開いている間は再度公開ボタンを押すことで修正ができます。）公開してもよろしいですか？")){
       const result = await uploadQuestionData(parsedQuestions,savedRef)
-      setMessageForDialog(result.message)
+      setMessageForDialog({body:result.message.body,url:result.message.url})
       if(result.status === "success"){
 
-        setSavedRef(result.ref)
+        
       }
       setOpenMessageDialog(true)
     }

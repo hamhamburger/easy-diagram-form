@@ -27,7 +27,7 @@ export default async function uploadQuestionData (questions,savedRef) {
   )
 
   if(!(flag1 && flag2)) {
-    return {status:"failed",message:"質問とメッセージが正しく入力されていません"};
+    return {status:"failed",message:{body:"質問とメッセージが正しく入力されていません"}};
   }
 
   const colRef = collection(db, "forms");
@@ -48,9 +48,9 @@ export default async function uploadQuestionData (questions,savedRef) {
     }
     
   
-      return {status:"success",ref:docRef.id,message:`保存に成功しました\n公開urlは\n ${window.location.origin}/start/${docRef.id}です`}
+      return {status:"success",ref:docRef.id,message:{body:"公開に成功しました",url:`${window.location.origin}/start/${docRef.id}`}}
     } catch (e) {
-      return {status:"failed",message:"保存に失敗しました"};
+      return {status:"failed",message:{body:"保存に失敗しました"}};
     }
   
   
