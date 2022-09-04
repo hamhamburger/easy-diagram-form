@@ -5,13 +5,13 @@ import createDataStructure from "../../lib/createDataStructure";
 import uploadQuestionData from "../../lib/uploadQuestionData";
 
 import ReactFlow, { ReactFlowProvider, useReactFlow , addEdge,Background,  useNodesState,useEdgesState, updateEdge,} from 'react-flow-renderer';
-import React, { useCallback,  useMemo, useRef, useState, useEffect, forwardRef } from 'react';
+import React, { useCallback,  useMemo, useRef, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DoneIcon from '@mui/icons-material/Done';
 import { Fab, Box,} from "@mui/material";
-import ResultNode from "../custome_nodes/ResultNode";
-import QuestionNode from "../custome_nodes/QuestionNode";
+import ResultNode from "../custom_nodes/ResultNode";
+import QuestionNode from "../custom_nodes/QuestionNode";
 import AddNodeDialog from "./AddNodeDialog";
 import MessageDialog from "./MessageDialog";
 
@@ -23,7 +23,7 @@ const Style = {
 };
 const fabStyle = {marginBottom:"5px",width:{xs:45,sm:60},height:{xs:45,sm:60}}
 
-const RefMessageDialog = forwardRef(MessageDialog)
+
 let parsedQuestions = []
 
 
@@ -72,7 +72,7 @@ const QuestionDiagram = ()=>{
   const [messageForDialog, setMessageForDialog] = useState(null)
   const [openMessageDialog, setOpenMessageDialog] = useState(false)
   const [savedRef, setSavedRef] = useState(null)
-  const dialogRef = useRef(null)
+  
 
 
   const nodeTypes = useMemo(
@@ -113,21 +113,19 @@ const QuestionDiagram = ()=>{
   },[reactFlowInstance,nodes])
 
   
-  const save = useCallback(async () => {
-    console.log(parsedQuestions)
-   
-  },[reactFlowInstance,nodes])
+
 
   
   async function upload() {
-    const result = await uploadQuestionData(parsedQuestions,savedRef)
-    setMessageForDialog(result.message)
-    if(result.status == "success"){
+    if(window.confirm("公開すると削除できません。（このページを開いている間は再度公開ボタンを押すことで修正ができます。）公開してもよろしいですか？")){
+      const result = await uploadQuestionData(parsedQuestions,savedRef)
+      setMessageForDialog(result.message)
+      if(result.status === "success"){
 
-      setSavedRef(result.ref)
+        setSavedRef(result.ref)
+      }
+      setOpenMessageDialog(true)
     }
-    setOpenMessageDialog(true)
-    
     
 
   }
@@ -205,7 +203,7 @@ const QuestionDiagram = ()=>{
                     <Fab onClick={upload} color="primary" aria-label="add" sx={fabStyle} >
                       <DoneIcon />
                     </Fab>
-                    <label>保存</label>
+                    <label>公開</label>
                   </Box>
 
                   <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>

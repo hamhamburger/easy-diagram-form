@@ -13,7 +13,7 @@ import TopHandle from '../handles/TopHandle';
 
 const QuestionNode = memo(({ data,id}) => {
   console.log("QuestionNode rendered")
-  const {label,first} = data
+  const {first} = data
 
   const placeholder = first ? 'この質問を起点に別の質問へと分岐していきます\n最初の質問を入力して下さい' : "質問を入力して下さい"
 
@@ -21,7 +21,7 @@ const QuestionNode = memo(({ data,id}) => {
   const handle = first ? null : <TopHandle type="target" position={Position.Top}/>
   const onChange = useCallback((evt) => {
     data.label = evt.target.value;
-  }, []);
+  }, [data]);
 
   return (
     <Box className="question-node" >
