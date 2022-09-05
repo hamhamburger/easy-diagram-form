@@ -26,10 +26,9 @@ const HelpPage = () => {
               src={`${process.env.PUBLIC_URL}/example.gif`}
                       />
               <Box sx={{minWidth:"100px"}}>
-                <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>簡単フォーム(仮)とは？</Typography>
+                <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>Formulaとは？</Typography>
                 <p>トラブルシューティング、ユーザーへのおすすめなどに使えるフォームを簡単に作れるサービスです。</p>
                 <br/>
-                <p>これは一番おすすめのスマホプランを診断するフォームのサンプルです。</p>
               </Box>
           </Box>
           <Box sx={{}}>
@@ -87,7 +86,6 @@ const HelpPage = () => {
               <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>その他の機能について</Typography>
               <p>ボックスの接続を解除するには根本の辺りをクリックして下さい。</p>
               <p>本サービスはまだ開発途中です。もしよろしければちょっと遊んでみたりくだらないフォームを作成する程度にご利用頂き、ビジネスなどにはご利用なさらないようお願い致します。</p>
-              <p>現在認証システムを導入していないため作成したフォームは閲覧されたり編集されたりする恐れがあります。</p>
               <p>また、突然サービスを停止したり予告なく機能を変更する可能性がありますのでご了承ください。</p>
               </Box>
          

@@ -104,7 +104,7 @@ export default function Header({onButtonClick}) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            簡単フォーム(仮)
+            Formula
           </Typography>
         </Toolbar>
       </AppBar>

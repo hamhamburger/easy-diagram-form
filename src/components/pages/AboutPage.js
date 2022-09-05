@@ -19,7 +19,6 @@ const AboutPage = () => {
               <Box sx={{minWidth:"100px"}}>
               <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>このサイトについて</Typography>
               <p>本サービスはまだ開発途中です。もしよろしければちょっと遊んでみたりくだらないフォームを作成する程度にご利用頂き、ビジネスなどにはご利用なさらないようお願い致します。</p>
-              <p>現在認証システムを導入していないため作成したフォームは閲覧されたり編集されたりする恐れがあります。</p>
               <p>また、突然サービスを停止したり予告なく機能を変更する可能性がありますのでご了承ください。</p>
               </Box>
               <Box sx={{minWidth:"100px"}}>
@@ -36,7 +35,7 @@ const AboutPage = () => {
           </Box>
       </Box>
 
-    <footer>Copyright (c) 2022 yamory yamada
+    <footer>Copyright (c) 2022 hamhamburger
 Released under the MIT license
 https://opensource.org/licenses/mit-license.php</footer>
     </>
