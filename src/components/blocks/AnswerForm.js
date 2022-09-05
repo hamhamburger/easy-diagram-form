@@ -50,7 +50,9 @@ const AnswerForm = memo(({questions,height}) => {
                       <Box sx={{marginTop:"20px"}}>
                         <Result message={currentQuestion.label} />
                       </Box>
-            
+                      <Box sx={{textAlign:"center"}}>
+                        <Box component="a" href={window.location.origin} >このようなフォームが1分で作れます！</Box>
+                      </Box>
                       <Container sx={{overflowY:"scroll"}} className="AnswersGrid">
                         <Grid container rowSpacing={2} columnSpacing={2} >
                             
@@ -63,9 +65,7 @@ const AnswerForm = memo(({questions,height}) => {
                         questionIndexHistory.length > 1 && footer
                          
                       }
-                      <Box sx={{position:'absolute',bottom:0,right:0}}>
-                        <span><a>このフォームは</a></span>
-                      </Box>
+                  
             </Container>
 
       

@@ -116,7 +116,7 @@ const QuestionDiagram = ()=>{
 
   
   async function upload() {
-    if(window.confirm("一度公開すると削除できません。/n公開してもよろしいですか？")){
+    if(window.confirm("一度公開すると削除できません。\n公開してもよろしいですか？")){
       const result = await uploadQuestionData(parsedQuestions)
       setMessageForDialog({body:result.message.body,url:result.message.url})
       if(result.status === "success"){

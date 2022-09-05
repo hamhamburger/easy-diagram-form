@@ -31,7 +31,7 @@ const HelpPage = () => {
                 <br/>
               </Box>
           </Box>
-          <Box sx={{}}>
+          <Box sx={{marginTop:"50px"}}>
          
               <Box sx={{minWidth:"100px"}}>
                 <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>使い方</Typography>
@@ -67,6 +67,7 @@ const HelpPage = () => {
               alt="form"
               src={`${process.env.PUBLIC_URL}/create.gif`}
                       />
+              <p>ボックスの接続を解除するには線の根本の辺りをクリックして下さい。</p>
          
           </Box>
           <Box sx={{marginTop:"50px"}}>
