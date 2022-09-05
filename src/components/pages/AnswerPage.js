@@ -19,7 +19,6 @@ const AnswerPage = () => {
     
         async function getFormAsync() {
           const formsRef = collection(db, "forms");
-          console.log(questions)
           const docRef = doc(db, "forms", id);
           const docSnap = await getDoc(docRef);
          
@@ -29,20 +28,18 @@ const AnswerPage = () => {
             setQuestions(docSnap.data().questions)
             
           } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
+            alert("urlが間違っています")
           }
 
         }
+
         getFormAsync()
      
-         
-          
   }, [])
  
   return( 
     questions ?
-    <AnswerForm questions={questions} height={window.innerHeight}></AnswerForm>
+    <AnswerForm questions={questions} height={window.innerHeight} />
     : <h1>読み込み中</h1>
   )
    

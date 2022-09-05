@@ -1,8 +1,5 @@
 function createDataStructure(edges,nodes) {
-  
-
   const array = []
-
   const questions = nodes.map(node => {
     const obj = {}
     obj.id = node.id
@@ -13,7 +10,6 @@ function createDataStructure(edges,nodes) {
     }
     return obj
   })
-
 
   edges.map((edge) => {
    

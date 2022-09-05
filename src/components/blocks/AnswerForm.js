@@ -3,11 +3,11 @@
 import React,{useState,useCallback,memo} from 'react';
 
 import { Button,Container,Box,Grid, } from '@mui/material';
-import Result from '../parts/play/Result';
-import QuestionArea from '../parts/play/QuestionArea';
+import Result from '../parts/start/Result';
+import QuestionArea from '../parts/start/QuestionArea';
 const AnswerForm = memo(({questions,height}) => {
   
-  
+
 
   const [questionIndexHistory, setQuestionIndexHistory] = useState([0]) 
   const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
@@ -29,6 +29,18 @@ const AnswerForm = memo(({questions,height}) => {
 
   },[setQuestionIndexHistory,questionIndexHistory])
 
+  if(!questions) return(
+    <h1>質問が存在しません</h1>
+  )
+  const footer = 
+    <Box className="footer" sx={{display:"flex",justifyContent:"center"}}>
+      <Button variant="contained" sx={{height:{xs:50,sm:100},width:{xs:"100%",sm:"80%"},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
+        {"戻る"}
+      </Button>
+    </Box>
+  
+
+
   if(currentQuestion.type === 'result'){
       return(
 
@@ -38,7 +50,9 @@ const AnswerForm = memo(({questions,height}) => {
                       <Box sx={{marginTop:"20px"}}>
                         <Result message={currentQuestion.label} />
                       </Box>
-            
+                      <Box sx={{textAlign:"center"}}>
+                        <Box component="a" href={window.location.origin} >このようなフォームが1分で作れます！</Box>
+                      </Box>
                       <Container sx={{overflowY:"scroll"}} className="AnswersGrid">
                         <Grid container rowSpacing={2} columnSpacing={2} >
                             
@@ -48,14 +62,10 @@ const AnswerForm = memo(({questions,height}) => {
             
                       </Container>
                       {
-                        questionIndexHistory.length > 1 && 
-                          <Box className="footer">
-                            <Button variant="contained" fullWidth sx={{height:{xs:50,sm:100},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
-                              {"戻る"}
-                            </Button>
-                          </Box>
+                        questionIndexHistory.length > 1 && footer
+                         
                       }
-            
+                  
             </Container>
 
       
@@ -90,12 +100,10 @@ const AnswerForm = memo(({questions,height}) => {
             
             
                       </Container>
-                      {questionIndexHistory.length > 1 && 
-                     <Box className="footer">
-                        <Button variant="contained" fullWidth sx={{height:{xs:50,sm:100},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
-                            {"戻る"}
-                        </Button>
-                      </Box>}
+                      {questionIndexHistory.length > 1 &&  footer}
+                    
+                       
+                    
             
             </Container>
 

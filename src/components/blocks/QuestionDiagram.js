@@ -69,9 +69,8 @@ const QuestionDiagram = ()=>{
   const reactFlowInstance = useReactFlow();
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [messageForDialog, setMessageForDialog] = useState(null)
+  const [messageForDialog, setMessageForDialog] = useState({body:"",url:""})
   const [openMessageDialog, setOpenMessageDialog] = useState(false)
-  const [savedRef, setSavedRef] = useState(null)
   
 
 
@@ -117,12 +116,11 @@ const QuestionDiagram = ()=>{
 
   
   async function upload() {
-    if(window.confirm("公開すると削除できません。（このページを開いている間は再度公開ボタンを押すことで修正ができます。）公開してもよろしいですか？")){
-      const result = await uploadQuestionData(parsedQuestions,savedRef)
-      setMessageForDialog(result.message)
+    if(window.confirm("一度公開すると削除できません。\n公開してもよろしいですか？")){
+      const result = await uploadQuestionData(parsedQuestions)
+      setMessageForDialog({body:result.message.body,url:result.message.url})
       if(result.status === "success"){
 
-        setSavedRef(result.ref)
       }
       setOpenMessageDialog(true)
     }
@@ -174,7 +172,43 @@ const QuestionDiagram = ()=>{
   //   },
   //   [parsedQuestions],
   // )
-  
+
+
+
+
+  //useMemoを使うとaddNodeを呼び出した際にステータスがうまく更新されない
+  const floatButtons = 
+
+      <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
+
+      <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+        <Fab onClick={upload} color="primary" aria-label="add" sx={fabStyle} >
+          <DoneIcon />
+        </Fab>
+        <label>公開</label>
+      </Box>
+
+        <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+          <TryDialog questions={parsedQuestions}>
+            <Fab color="primary" aria-label="add" sx={fabStyle}>
+              <PlayArrowIcon />
+            </Fab>
+          </TryDialog>
+          <label>試す</label>
+        </Box>
+
+        
+          <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+            <AddNodeDialog onClick={addNode}>
+              <Fab color="primary" aria-label="add" sx={fabStyle}>
+                <AddIcon />
+              </Fab>
+            </AddNodeDialog>  
+              <label>追加</label>
+          </Box>
+    
+    </Box>
+
 
   return(
     <div>
@@ -197,36 +231,7 @@ const QuestionDiagram = ()=>{
 
          </ReactFlow>
      
-          <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
-
-                  <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
-                    <Fab onClick={upload} color="primary" aria-label="add" sx={fabStyle} >
-                      <DoneIcon />
-                    </Fab>
-                    <label>公開</label>
-                  </Box>
-
-                  <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-                    <TryDialog questions={parsedQuestions}>
-                      <Fab color="primary" aria-label="add" sx={fabStyle}>
-                        <PlayArrowIcon />
-                      </Fab>
-                    </TryDialog>
-                    <label>試す</label>
-                  </Box>
-
-                  
-                    <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
-                      <AddNodeDialog onClick={addNode}>
-                        <Fab color="primary" aria-label="add" sx={fabStyle}>
-                          <AddIcon />
-                        </Fab>
-                      </AddNodeDialog>  
-                        <label>追加</label>
-                    </Box>
-                  
- 
-            </Box>
+          {floatButtons}
             <MessageDialog isOpen={openMessageDialog} message={messageForDialog} onClick={() => setOpenMessageDialog(false)}/>      
  
     </div>
