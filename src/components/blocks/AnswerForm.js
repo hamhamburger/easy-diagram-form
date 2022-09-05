@@ -51,7 +51,7 @@ const AnswerForm = memo(({questions,height}) => {
                         <Result message={currentQuestion.label} />
                       </Box>
                       <Box sx={{textAlign:"center"}}>
-                        <Box component="a" href={window.location.origin}  target="_blank">1分でこのサイトが作れます！</Box>
+                        <Box component="a" href={window.location.origin}  target="_blank">createdByFormula</Box>
                       </Box>
                       <Container sx={{overflowY:"scroll"}} className="AnswersGrid">
                         <Grid container rowSpacing={2} columnSpacing={2} >
