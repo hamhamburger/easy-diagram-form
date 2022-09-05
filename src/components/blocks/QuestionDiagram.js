@@ -174,7 +174,45 @@ const QuestionDiagram = ()=>{
   //   },
   //   [parsedQuestions],
   // )
+  const floatButtons = useMemo(() => {
+    return(
+
+  <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
+
+  <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+    <Fab onClick={upload} color="primary" aria-label="add" sx={fabStyle} >
+      <DoneIcon />
+    </Fab>
+    <label>公開</label>
+  </Box>
+
+    <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <TryDialog questions={parsedQuestions}>
+        <Fab color="primary" aria-label="add" sx={fabStyle}>
+          <PlayArrowIcon />
+        </Fab>
+      </TryDialog>
+      <label>試す</label>
+    </Box>
+
+    
+      <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+        <AddNodeDialog onClick={addNode}>
+          <Fab color="primary" aria-label="add" sx={fabStyle}>
+            <AddIcon />
+          </Fab>
+        </AddNodeDialog>  
+          <label>追加</label>
+      </Box>
   
+
+</Box>
+
+
+    )}
+  
+  , [])
+
 
   return(
     <div>
@@ -197,36 +235,7 @@ const QuestionDiagram = ()=>{
 
          </ReactFlow>
      
-          <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
-
-                  <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
-                    <Fab onClick={upload} color="primary" aria-label="add" sx={fabStyle} >
-                      <DoneIcon />
-                    </Fab>
-                    <label>公開</label>
-                  </Box>
-
-                  <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
-                    <TryDialog questions={parsedQuestions}>
-                      <Fab color="primary" aria-label="add" sx={fabStyle}>
-                        <PlayArrowIcon />
-                      </Fab>
-                    </TryDialog>
-                    <label>試す</label>
-                  </Box>
-
-                  
-                    <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
-                      <AddNodeDialog onClick={addNode}>
-                        <Fab color="primary" aria-label="add" sx={fabStyle}>
-                          <AddIcon />
-                        </Fab>
-                      </AddNodeDialog>  
-                        <label>追加</label>
-                    </Box>
-                  
- 
-            </Box>
+          {floatButtons}
             <MessageDialog isOpen={openMessageDialog} message={messageForDialog} onClick={() => setOpenMessageDialog(false)}/>      
  
     </div>
