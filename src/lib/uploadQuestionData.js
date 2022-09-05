@@ -2,9 +2,10 @@ import db from "../firebase";
 import { addDoc, collection, doc, updateDoc} from "firebase/firestore";
 
 
-export default async function uploadQuestionData (questions,savedRef) {
+export default async function uploadQuestionData (questions,secretKey,savedRef) {
   let flag1 = false //最低一個は質問が入力されているか
   let flag2 = false //最低一個はメッセージが入力されているか
+  let flag3 = true  //質問とメッセージは60文字以下
 
   questions.map((question) => {
     switch (question.type) {
@@ -36,13 +37,13 @@ export default async function uploadQuestionData (questions,savedRef) {
       if(savedRef){
         docRef = doc(db, "forms", savedRef);
         await updateDoc(docRef, {
-          questions:questions
+          questions:questions,secretKey:secretKey
         });
 
       }
       else {
         docRef = await addDoc(colRef, {
-        questions:questions
+        questions:questions,secretKey:secretKey,keyToRead:Math.random().toString(32).substring(2)
       });
     
     }

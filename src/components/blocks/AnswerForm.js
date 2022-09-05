@@ -7,7 +7,7 @@ import Result from '../parts/start/Result';
 import QuestionArea from '../parts/start/QuestionArea';
 const AnswerForm = memo(({questions,height}) => {
   
-  
+
 
   const [questionIndexHistory, setQuestionIndexHistory] = useState([0]) 
   const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
@@ -29,6 +29,18 @@ const AnswerForm = memo(({questions,height}) => {
 
   },[setQuestionIndexHistory,questionIndexHistory])
 
+  if(!questions) return(
+    <h1>質問が存在しません</h1>
+  )
+  const footer = 
+    <Box className="footer" sx={{display:"flex",justifyContent:"center"}}>
+      <Button variant="contained" sx={{height:{xs:50,sm:100},width:{xs:"100%",sm:"80%"},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
+        {"戻る"}
+      </Button>
+    </Box>
+  
+
+
   if(currentQuestion.type === 'result'){
       return(
 
@@ -48,14 +60,12 @@ const AnswerForm = memo(({questions,height}) => {
             
                       </Container>
                       {
-                        questionIndexHistory.length > 1 && 
-                          <Box className="footer">
-                            <Button variant="contained" fullWidth sx={{height:{xs:50,sm:100},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
-                              {"戻る"}
-                            </Button>
-                          </Box>
+                        questionIndexHistory.length > 1 && footer
+                         
                       }
-            
+                      <Box sx={{position:'absolute',bottom:0,right:0}}>
+                        <span><a>このフォームは</a></span>
+                      </Box>
             </Container>
 
       
@@ -90,12 +100,10 @@ const AnswerForm = memo(({questions,height}) => {
             
             
                       </Container>
-                      {questionIndexHistory.length > 1 && 
-                     <Box className="footer">
-                        <Button variant="contained" fullWidth sx={{height:{xs:50,sm:100},fontSize:"1.4rem",bottom:'20px'}} onClick={back}>
-                            {"戻る"}
-                        </Button>
-                      </Box>}
+                      {questionIndexHistory.length > 1 &&  footer}
+                    
+                       
+                    
             
             </Container>
 

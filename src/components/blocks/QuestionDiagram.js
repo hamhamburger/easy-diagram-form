@@ -72,7 +72,7 @@ const QuestionDiagram = ()=>{
   const [messageForDialog, setMessageForDialog] = useState({body:"",url:""})
   const [openMessageDialog, setOpenMessageDialog] = useState(false)
   const [savedRef, setSavedRef] = useState(null)
-  
+  const [secretKey,setSecretkey] = useState(Math.random().toString(32).substring(2))
 
 
   const nodeTypes = useMemo(
@@ -118,7 +118,7 @@ const QuestionDiagram = ()=>{
   
   async function upload() {
     if(window.confirm("一度公開すると削除できません。（このページを開いている間は再度公開ボタンを押すことで修正ができます。）公開してもよろしいですか？")){
-      const result = await uploadQuestionData(parsedQuestions,savedRef)
+      const result = await uploadQuestionData(parsedQuestions,secretKey,savedRef)
       setMessageForDialog({body:result.message.body,url:result.message.url})
       if(result.status === "success"){
 
