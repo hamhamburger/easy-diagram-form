@@ -68,6 +68,7 @@ export default function Header({onButtonClick}) {
                 </ListItem>
           </Link>)
         break;
+      default:
     }
   }
 

@@ -1,6 +1,7 @@
 {
   "name": "question-create-diagram",
   "version": "0.1.0",
+  "homepage": "/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -14,6 +15,7 @@
     "@types/node": "^16.11.56",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "axios": "^0.27.2",
     "firebase": "^9.9.4",
     "firebase-admin": "^11.0.1",
     "react": "^18.2.0",

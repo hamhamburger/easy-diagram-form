@@ -2,7 +2,7 @@ import React from "react";
 
 import { Container, Typography } from "@mui/material";
 import Header from "../blocks/Header";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 
 
@@ -27,7 +27,7 @@ const HelpPage = () => {
                       />
               <Box sx={{minWidth:"100px"}}>
                 <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>Formulaとは？</Typography>
-                <p>トラブルシューティング、ユーザーへのおすすめなどに使えるフォームを簡単に作れるサービスです。</p>
+                <p>トラブルシューティング、ユーザーへのおすすめなどに使えるフォームを無料で簡単に作れるサービスです。</p>
                 <br/>
               </Box>
           </Box>
@@ -77,21 +77,24 @@ const HelpPage = () => {
               <p>保存ボタンを押すことでurlが発行されます。基本的にはurlを知っている人しかアクセスできませんが、知らない人にアクセスされても構わないようなフォームのみ作成してください。
                 <br />公開されたフォームの削除には管理者への連絡が必要になります。
               </p>
-              </Box>
+          </Box>
          
          
           </Box>
           <Box sx={{marginTop:"50px"}}>
          
               <Box sx={{minWidth:"100px"}}>
-              <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>その他の機能について</Typography>
-              <p>ボックスの接続を解除するには根本の辺りをクリックして下さい。</p>
-              <p>本サービスはまだ開発途中です。もしよろしければちょっと遊んでみたりくだらないフォームを作成する程度にご利用頂き、ビジネスなどにはご利用なさらないようお願い致します。</p>
-              <p>また、突然サービスを停止したり予告なく機能を変更する可能性がありますのでご了承ください。</p>
+                <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>その他の機能について</Typography>
+                <p>本サービスはまだ開発途中です。もしよろしければちょっと遊んでみたりくだらないフォームを作成する程度にご利用頂き、ビジネスなどにはご利用なさらないようお願い致します。</p>
+                <p>また、突然サービスを停止したり予告なく機能を変更する可能性がありますのでご了承ください。</p>
               </Box>
          
          
           </Box>
+          <Box sx={{marginTop:"50px",textAlign:"center"}}>
+            <Button variant="contained" size="large" sx={{fontSize:{xs:"1rem",sm:"1.5rem",md:"2rem"}}}>今すぐ使ってみる</Button>
+          </Box>
+
        </Box>
 
    
