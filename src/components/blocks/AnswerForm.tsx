@@ -5,13 +5,23 @@ import React,{useState,useCallback,memo} from 'react';
 import { Button,Container,Box,Grid, } from '@mui/material';
 import Result from '../parts/start/Result';
 import QuestionArea from '../parts/start/QuestionArea';
-const AnswerForm = memo(({questions,height}) => {
+import { Height, ImportExport } from '@mui/icons-material';
+import QuestionInterface from 'components/interfaces/questions'
+
+inteeface props: {
+  questions:  QuestionInterface[],
+  height: number
+}
+
+const AnswerForm = memo(function AnswerForm({questions,height}: props) {
   
 
 
   const [questionIndexHistory, setQuestionIndexHistory] = useState([0]) 
+  // @ts-expect-error TS(7006): Parameter 'question' implicitly has an 'any' type.
   const currentQuestion = questions.find((question) => question.id == questionIndexHistory.slice(-1)[0])
 
+  // @ts-expect-error TS(7006): Parameter 'id' implicitly has an 'any' type.
   const goTo = (id) => {
     setQuestionIndexHistory([...questionIndexHistory,id])
   }
@@ -45,15 +55,22 @@ const AnswerForm = memo(({questions,height}) => {
       return(
 
       
+      
       <Container sx={{height:height,display: "grid",gridTemplateColumns: "1fr",gridTemplateRows:"auto 1fr auto",rowGap:"2rem"}}>
 
+                      
                       <Box sx={{marginTop:"20px"}}>
+                        
                         <Result message={currentQuestion.label} />
                       </Box>
+                      
                       <Box sx={{textAlign:"center"}}>
+                        
                         <Box component="a" href={window.location.origin}  target="_blank">createdByFormula</Box>
                       </Box>
+                      
                       <Container sx={{overflowY:"scroll"}} className="AnswersGrid">
+                        
                         <Grid container rowSpacing={2} columnSpacing={2} >
                             
                           </Grid>
@@ -69,7 +86,8 @@ const AnswerForm = memo(({questions,height}) => {
             </Container>
 
       
-npm install --save-dev ts-migrate
+
+
       )
   }
 

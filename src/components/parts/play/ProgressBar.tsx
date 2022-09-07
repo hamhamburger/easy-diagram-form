@@ -22,7 +22,9 @@ export default function ProgressBar() {
   }, []);
 
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <Box sx={{ width: '100%' }}>
+      {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
       <LinearProgress variant="determinate" value={progress} />
     </Box>
   );

@@ -24,7 +24,7 @@ const Style = {
 const fabStyle = {marginBottom:"5px",width:{xs:45,sm:60},height:{xs:45,sm:60}}
 
 
-let parsedQuestions = []
+let parsedQuestions: any = []
 
 
 const initialNodes = [
@@ -63,10 +63,11 @@ const initialNodes = [
 
 
 
-const QuestionDiagram = ()=>{
+const QuestionDiagram = ():JSX.Element=>{
 
   
   const reactFlowInstance = useReactFlow();
+  // @ts-expect-error TS(2345): Argument of type '({ id: string; type: string; pos... Remove this comment to see the full error message
   const [nodes, setNodes ,onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [messageForDialog, setMessageForDialog] = useState({body:"",url:""})
@@ -82,7 +83,7 @@ const QuestionDiagram = ()=>{
   );
 
   const onConnect = useCallback(
-    (connection) => {
+    (connection: any) => {
       const answer = prompt("回答を入力して下さい");
       setEdges((eds) => addEdge({...connection,type:'step',label:answer ? answer : 'はい',},eds));
 
@@ -94,7 +95,7 @@ const QuestionDiagram = ()=>{
 
   
 
-  const addNode = useCallback((type) => {
+  const addNode = useCallback((type: any) => {
     const nodeId =nodes.length
     
     const newNode = {
@@ -115,14 +116,11 @@ const QuestionDiagram = ()=>{
 
 
   
-  async function upload() {
+  async function upload():Promise<void> {
     if(window.confirm("一度公開すると削除できません。\n公開してもよろしいですか？")){
       const result = await uploadQuestionData(parsedQuestions)
-      setMessageForDialog({body:result.message.body,url:result.message.url})
-      if(result.status === "success"){
-
-      }
-      setOpenMessageDialog(true)
+        setMessageForDialog({body:result.message.body,url:result.message.url});
+      setOpenMessageDialog(true);
     }
     
 
@@ -138,12 +136,12 @@ const QuestionDiagram = ()=>{
     edgeUpdateSuccessful.current = false;
   }, []);
 
-  const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+  const onEdgeUpdate = useCallback((oldEdge: any, newConnection: any) => {
     edgeUpdateSuccessful.current = true;
     setEdges((els) => updateEdge(oldEdge, newConnection, els));
   }, []);
 
-  const onEdgeUpdateEnd = useCallback((_, edge) => {
+  const onEdgeUpdateEnd = useCallback((_: any, edge: any) => {
     if (!edgeUpdateSuccessful.current) {
       setEdges((eds) => eds.filter((e) => e.id !== edge.id));
     }
@@ -176,11 +174,11 @@ const QuestionDiagram = ()=>{
 
 
 
-  //useMemoを使うとaddNodeを呼び出した際にステータスがうまく更新されない
+  // useMemoを使うとaddNodeを呼び出した際にステータスがうまく更新されない
   const floatButtons = 
 
+      
       <Box sx={{display:{xs:"flex",sm:"flex"},flexDirection:"column",alignItems:"center",position:"absolute", bottom:{xs:"10px",sm:"20px"},right:{xs:"25px",sm:"30px",}, zIndex:10}}>
-
       <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
         <Fab onClick={upload} color="primary" aria-label="add" sx={fabStyle} >
           <DoneIcon />
@@ -188,22 +186,32 @@ const QuestionDiagram = ()=>{
         <label>公開</label>
       </Box>
 
+
         <Box sx={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+           
           <TryDialog questions={parsedQuestions}>
+             
             <Fab color="primary" aria-label="add" sx={fabStyle}>
+               
               <PlayArrowIcon />
             </Fab>
           </TryDialog>
+           
           <label>試す</label>
         </Box>
 
         
+           
           <Box sx={{display:"flex",flexDirection:"column", zIndex:10,alignItems:"center"}}>
+             
             <AddNodeDialog onClick={addNode}>
+               
               <Fab color="primary" aria-label="add" sx={fabStyle}>
+                 
                 <AddIcon />
               </Fab>
             </AddNodeDialog>  
+               
               <label>追加</label>
           </Box>
     
@@ -211,7 +219,9 @@ const QuestionDiagram = ()=>{
 
 
   return(
+    
     <div>
+         
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -227,11 +237,13 @@ const QuestionDiagram = ()=>{
 
           style={Style}
          >
+           
           <Background />
 
          </ReactFlow>
      
           {floatButtons}
+             
             <MessageDialog isOpen={openMessageDialog} message={messageForDialog} onClick={() => setOpenMessageDialog(false)}/>      
  
     </div>
@@ -245,8 +257,11 @@ const QuestionDiagram = ()=>{
   }
   export default function () {
     return (
+      
       <>
+         
         <ReactFlowProvider>
+           
           <QuestionDiagram />
         </ReactFlowProvider>
       </>

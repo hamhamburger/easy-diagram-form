@@ -2,12 +2,12 @@ import db from "../firebase";
 import { addDoc, collection, doc, updateDoc} from "firebase/firestore";
 
 
-export default async function uploadQuestionData (questions) {
+export default async function uploadQuestionData (questions: any) {
   let flag1 = false //最低一個は質問が入力されているか
   let flag2 = false //最低一個はメッセージが入力されているか
   let flag3 = true  //質問とメッセージは60文字以下
 
-  questions.map((question) => {
+  questions.map((question: any) => {
     switch (question.type) {
       case "question":
         if(question.label) flag1 = true
