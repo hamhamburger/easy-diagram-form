@@ -69,7 +69,7 @@ const AnswerForm = memo(({questions,height}) => {
             </Container>
 
       
-      
+npm install --save-dev ts-migrate
       )
   }
 

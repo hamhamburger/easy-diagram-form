@@ -86,6 +86,7 @@ const HelpPage = () => {
               <Box sx={{minWidth:"100px"}}>
                 <Typography variant="h1" sx={{fontSize:{xs:28},borderBottom: "1px solid lightgray"}}>その他の機能について</Typography>
                 <p>本サービスはまだ開発途中です。もしよろしければちょっと遊んでみたりくだらないフォームを作成する程度にご利用頂き、ビジネスなどにはご利用なさらないようお願い致します。</p>
+                
                 <p>また、突然サービスを停止したり予告なく機能を変更する可能性がありますのでご了承ください。</p>
               </Box>
          
