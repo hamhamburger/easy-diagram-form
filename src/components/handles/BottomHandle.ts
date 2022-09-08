@@ -1,6 +1,5 @@
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'styl... Remove this comment to see the full error message
-import styled from 'styled-components';
-import { Handle, Position, NodeProps, Connection, Edge, HandleType } from 'react-flow-renderer';
+import styled from '@emotion/styled';
+import { Handle } from 'react-flow-renderer';
 
 const BottomHandle = styled(Handle)`
 && {

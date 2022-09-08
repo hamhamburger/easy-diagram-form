@@ -1,48 +1,48 @@
 // import db from "../../firebase";
 
-import { doc,getDoc, setDoc ,collection, getDocs} from "firebase/firestore";
+import { doc,getDoc} from "firebase/firestore";
 
-import React,{useState,useMemo,memo,useEffect,} from 'react';
+import React,{useState,useEffect,} from 'react';
 import { useParams } from 'react-router-dom';
 import AnswerForm from '../blocks/AnswerForm';
-import { async } from "@firebase/util";
 import db from "../../firebase";
+import { Question } from "components/interface";
 
 
 
+const AnswerPage = ():JSX.Element => {
+  const [questions, setQuestions] = useState<Question[]>()
+  const { id } = useParams()
+  const path:string = "forms"
 
-const AnswerPage = () => {
-  const [questions, setQuestions] = useState()
-  const {id} = useParams()
-  
   useEffect(() => {
     
-        async function getFormAsync() {
-          const formsRef = collection(db, "forms");
-          // @ts-expect-error TS(2769): No overload matches this call.
-          const docRef = doc(db, "forms", id);
-          const docSnap = await getDoc(docRef);
+    const getFormData = async (): Promise<void> => {
+      if (!(typeof id === "string")) {
+        return
+      }
+      const docRef = doc(db, path, id);
+      const docSnap = await getDoc(docRef);
          
           
-          if (docSnap.exists()) {
+      if (docSnap.exists()) {
+        setQuestions(docSnap.data().questions)
             
-            setQuestions(docSnap.data().questions)
-            
-          } else {
-            alert("urlが間違っています")
-          }
+      } else {
+        alert("urlが間違っています")
+      }
+    } 
+    void getFormData()
+        
+       
 
-        }
 
-        getFormAsync()
+   
      
   }, [])
  
   return( 
-    questions ?
-    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-    <AnswerForm questions={questions} height={window.innerHeight} />
-    : // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+    questions === undefined ? <AnswerForm questions={questions} height={window.innerHeight} /> :
       <h1>読み込み中</h1>
   )
    

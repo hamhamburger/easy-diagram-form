@@ -1,44 +1,39 @@
-import React,{memo,useState,forwardRef} from 'react';
+import React from "react";
 
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button} from '@mui/material'
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Button,
+} from "@mui/material";
 
+interface Props {
+  isOpen: boolean;
+  url?: string;
+  message: string
 
-const MessageDialog = ({
-  isOpen,
-  message,
-  onClick
-}: any) => {
-  
-
-
- 
-  const handleClose = () => {
-
-  };
- 
-  return (
- 
-      
-      // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <Dialog open={isOpen} onClose={handleClose} >
-        {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-        <DialogContent sx={{whiteSpace:"pre-wrap"}}>
-          {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-          <p>{message.body}</p>
-          {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-          <a href={message.url} target="_blank" rel="noreferrer">{message.url}</a>
-        </DialogContent>
-        {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-        <DialogActions>
-          
-          {/* @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message */}
-          <Button onClick={onClick}>閉じる</Button>
-        </DialogActions>
-
-
-      </Dialog>
-   
-  );
+  onClick: () => void;
 }
+
+const MessageDialog = ({ isOpen, message,url, onClick }: Props): JSX.Element => {
+
+
+  return (
+    
+    <Dialog open={isOpen}>
+      <DialogContent sx={{ whiteSpace: "pre-wrap" }}>
+        <p>{message}</p>
+
+        <a href={url} target="_blank" rel="noreferrer">
+          {url}
+        </a>
+      </DialogContent>
+
+      <DialogActions>
+        <Button onClick={onClick}>閉じる</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export default MessageDialog

@@ -1,55 +1,64 @@
 import db from "../firebase";
-import { addDoc, collection, doc, updateDoc} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
+import { Question } from "components/interface";
+interface Result {
+  status: "success" | "fail";
+  message: string;
+  url?: string;
+  ref?: string;
+  errors?: string[];
+}
 
+export default async function uploadQuestionData(
+  questions: Question[]
+): Promise<Result> {
+  let valid = true;
 
-export default async function uploadQuestionData (questions: any) {
-  let flag1 = false //最低一個は質問が入力されているか
-  let flag2 = false //最低一個はメッセージが入力されているか
-  let flag3 = true  //質問とメッセージは60文字以下
+  const errors:string[] = [];
 
-  questions.map((question: any) => {
+  questions.forEach((question: Question): void => {
+    if (question.label.length > 60) {
+      errors.push("質問とメッセージの長さは60文字以下にしてください");
+      valid = false;
+    }
     switch (question.type) {
       case "question":
-        if(question.label) flag1 = true
+        if (question.label !== undefined) {
+          errors.push("質問を入力してください");
+          valid = false;
+        }
         break;
-      
+
       case "result":
-        if(question.label) flag2 = true
+        if (question.label !== undefined) {
+          errors.push("メッセージを入力してください");
+          valid = false;
+        }
         break;
-      
+
       default:
         break;
     }
-
-   
-    
-
-    }
-  )
-
-  if(!(flag1 && flag2)) {
-    return {status:"failed",message:{body:"質問とメッセージが正しく入力されていません"}};
+  });
+  if (!valid) {
+    const message = errors.join("\n")
+    return { status: "fail", message};
   }
 
   const colRef = collection(db, "forms");
-    try {
-
-
-        const docRef = await addDoc(colRef, {
-        questions:questions,keyToRead:Math.random().toString(32).substring(2)
-      });
-    
-    
-    
-  
-      return {status:"success",ref:docRef.id,message:{body:"公開に成功しました",url:`${window.location.origin}/start/${docRef.id}`}}
-    } catch (e) {
-      return {status:"failed",message:{body:"保存に失敗しました"}};
-    }
-  
-  
-
-
-
-
+  const object = {
+    questions,
+    keyToRead: Math.random().toString(32).substring(2),
+  };
+  try {
+    const docRef = await addDoc(colRef, object);
+    return {
+      status: "success",
+      ref: docRef.id,
+      message: "公開に成功しました",
+      url: `${window.location.origin}/start/${docRef.id}`,
+    };
+  } catch (e) {
+    return { status: "fail", message: "保存に失敗しました" };
+  }
 }
