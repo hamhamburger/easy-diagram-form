@@ -59,6 +59,7 @@ export default async function uploadQuestionData(
       url: `${window.location.origin}/start/${docRef.id}`,
     };
   } catch (e) {
+    console.log(e)
     return { status: "fail", message: "保存に失敗しました" };
   }
 }
