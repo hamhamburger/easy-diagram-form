@@ -283,9 +283,7 @@ const QuestionDiagram = (): JSX.Element => {
     return (
       
       <>
-         
         <ReactFlowProvider>
-           
           <QuestionDiagram />
         </ReactFlowProvider>
       </>
