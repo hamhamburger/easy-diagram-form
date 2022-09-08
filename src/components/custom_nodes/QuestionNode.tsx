@@ -21,7 +21,7 @@ const QuestionNode = memo(function QuestionNode({ data, id }: Params):JSX.Elemen
   const { first } = data
   const placeholder = first === undefined ? 'この質問を起点に別の質問へと分岐していきます\n最初の質問を入力して下さい' : "質問を入力して下さい"
   const handle = first === undefined ? null : <TopHandle type="target" position={Position.Top} />
-  const onChange = useCallback((evt: any) => {
+  const onChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
     data.label = evt.target.value;
   }, [data]);
 

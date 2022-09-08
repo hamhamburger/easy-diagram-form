@@ -9,7 +9,7 @@ interface Props {
 }
 const ResultNode = memo(function ResultNode ({ data }:Props) {
 
-  const onChange = useCallback((evt: any) => {
+  const onChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
     data.label = evt.target.value;
   }, []);
 
