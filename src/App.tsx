@@ -15,7 +15,7 @@ function App():JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-       <Route path='/start/:id' element={<AnswerPage />}></Route>
+       <Route path='/start/:type/:id' element={<AnswerPage />}></Route>
        <Route path='*' element={<HelpPage />}></Route>
        <Route path='/create' element={<QuestionCreatePage />}></Route>
        <Route path='/about' element={<AboutPage />}></Route>

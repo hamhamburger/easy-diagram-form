@@ -12,8 +12,13 @@ import { Question } from "components/interface";
 
 const AnswerPage = ():JSX.Element => {
   const [questions, setQuestions] = useState<Question[]>()
-  const { id } = useParams()
-  const path:string = "forms"
+  const { id, type } = useParams()
+  if (typeof type !== "string" ) {
+        return(<h1>urlが間違っています</h1>)
+  }
+
+  
+  const path = type
 
   useEffect(() => {
     

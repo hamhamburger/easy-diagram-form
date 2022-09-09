@@ -14,10 +14,12 @@ interface ErrorsObj {
   noMessage?: string;
 }
 export default async function uploadQuestionData(
-  questions: Question[]
+  questions: Question[],isPublic:boolean = false
 ): Promise<Result> {
   let valid = true;
   const errorsObj: ErrorsObj = {};
+  const path = isPublic ? "open" : "close"
+
 
   questions.forEach((question: Question): void => {
     if (question.label !== undefined && question.label.length > 60) {
@@ -54,7 +56,7 @@ export default async function uploadQuestionData(
     return { status: "fail", message };
   }
 
-  const colRef = collection(db, "forms");
+  const colRef = collection(db,path);
   console.log(questions);
 
   try {
@@ -62,14 +64,13 @@ export default async function uploadQuestionData(
       questions,
       keyToRead: Math.random().toString(32).substring(2),
     };
-    console.log(object);
     const docRef = await addDoc(colRef, object);
 
     return {
       status: "success",
       ref: docRef.id,
       message: "公開に成功しました",
-      url: `${window.location.origin}/start/${docRef.id}`,
+      url: `${window.location.origin}/start/${path}/${docRef.id}`,
     };
   } catch (e) {
     console.log(e);

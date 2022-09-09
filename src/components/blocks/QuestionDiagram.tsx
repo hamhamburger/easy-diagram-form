@@ -52,14 +52,7 @@ const initialNodes = [
       label: "",
     },
   },
-  {
-    id: "2",
-    type: "result",
-    position: { x: 500, y: 800 },
-    data: {
-      label: "",
-    },
-  },
+  
 ];
 
 const nodeTypes = {
