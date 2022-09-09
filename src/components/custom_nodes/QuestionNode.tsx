@@ -27,7 +27,6 @@ const QuestionNode = memo(function QuestionNode({
     first === true ? null : <TopHandle type="target" position={Position.Top} />;
   const onChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
     data.label = evt.target.value;
-    console.log(data.label);
   }, []);
 
   return (

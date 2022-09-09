@@ -95,8 +95,8 @@ const AnswerForm = memo(function AnswerForm({ questions, height }: Props) {
           <QuestionArea
             questionBody={
               currentQuestion.label === ""
-                ? currentQuestion.label
-                : "質問が入力されていません"
+                ? "質問が入力されていません"
+                : currentQuestion.label
             }
           />
         </Box>
