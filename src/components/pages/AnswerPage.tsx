@@ -42,8 +42,8 @@ const AnswerPage = ():JSX.Element => {
   }, [])
  
   return( 
-    questions === undefined ? <AnswerForm questions={questions} height={window.innerHeight} /> :
-      <h1>読み込み中</h1>
+    questions === undefined ? <h1>読み込み中</h1> : <AnswerForm questions={questions} height={window.innerHeight} />
+      
   )
    
 

@@ -62,6 +62,7 @@ const AnswerForm = memo(function AnswerForm({ questions, height }: Props) {
           gridTemplateColumns: "1fr",
           gridTemplateRows: "auto 1fr auto",
           rowGap: "2rem",
+          maxWidth: "760px",
         }}
       >
         <Box sx={{ marginTop: "20px" }}>
@@ -89,6 +90,7 @@ const AnswerForm = memo(function AnswerForm({ questions, height }: Props) {
           gridTemplateColumns: "1fr",
           gridTemplateRows: "auto 1fr auto",
           rowGap: "2rem",
+          maxWidth: "760px",
         }}
       >
         <Box sx={{ marginTop: "20px" }}>
