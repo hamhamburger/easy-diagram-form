@@ -2,7 +2,7 @@ import { Question } from "components/interface";
 function createDataStructure(edges: any, nodes: any):Question[] {
   const questions = nodes.map((node: any) => {
 
-    const obj:Question = {id:node.id,label:node.data.label,type:node.data.type,arrows:[]}
+    const obj:Question = {id:node.id,label:node.data.label,type:node.type,arrows:[]}
 
     if (node.type === 'question'){
       (obj as any).arrows = [];

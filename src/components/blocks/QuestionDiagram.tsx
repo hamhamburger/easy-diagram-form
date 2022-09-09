@@ -13,7 +13,7 @@ import ReactFlow, {
   useEdgesState,
   updateEdge,
 } from "react-flow-renderer";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import DoneIcon from "@mui/icons-material/Done";
@@ -23,6 +23,7 @@ import QuestionNode from "../custom_nodes/QuestionNode";
 import AddNodeDialog from "./AddNodeDialog";
 import MessageDialog from "./MessageDialog";
 import { Question } from "components/interface";
+
 
 const Style = {
   backgroundColor: "lightblue",
@@ -41,7 +42,7 @@ const initialNodes = [
     id: "0",
     type: "question",
     position: { x: 300, y: -20 },
-    data: { first: true },
+    data: { first: true, label: "" },
   },
   {
     id: "1",
@@ -61,7 +62,12 @@ const initialNodes = [
   },
 ];
 
-interface Info {
+const nodeTypes = {
+  question: QuestionNode as any,
+  result: ResultNode as any,
+};
+
+interface Info { 
   message: string;
   url?: string;
 }
@@ -78,13 +84,7 @@ const QuestionDiagram = (): JSX.Element => {
   });
   const [openMessageDialog, setOpenMessageDialog] = useState(false);
 
-  const nodeTypes = useMemo(
-    () => ({
-      question: QuestionNode,
-      result: ResultNode,
-    }),
-    []
-  );
+
 
   const onConnect = useCallback(
     (connection: any) => {
@@ -260,7 +260,7 @@ const QuestionDiagram = (): JSX.Element => {
         onEdgeUpdateStart={onEdgeUpdateStart}
         onEdgeUpdateEnd={onEdgeUpdateEnd}
         // どうしても自力では解決できなかった...
-        // @ts-expect-error
+
         nodeTypes={nodeTypes}
         defaultZoom={0.1}
         style={Style}

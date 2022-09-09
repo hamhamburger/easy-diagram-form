@@ -6,32 +6,36 @@ interface Result {
   message: string;
   url?: string;
   ref?: string;
-  errors?: string[];
 }
 
+interface ErrorsObj {
+  tooLongQuestion?: string;
+  noQuestion?: string;
+  noMessage?: string;
+}
 export default async function uploadQuestionData(
   questions: Question[]
 ): Promise<Result> {
   let valid = true;
-
-  const errors:string[] = [];
+  const errorsObj: ErrorsObj = {};
 
   questions.forEach((question: Question): void => {
-    if (question.label.length > 60) {
-      errors.push("質問とメッセージの長さは60文字以下にしてください");
+    if (question.label !== undefined && question.label.length > 60) {
+      errorsObj.tooLongQuestion =
+        "質問とメッセージの長さはそれぞれ60文字以下にしてください";
       valid = false;
     }
     switch (question.type) {
       case "question":
-        if (question.label !== undefined) {
-          errors.push("質問を入力してください");
+        if (question.label === "") {
+          errorsObj.noQuestion = "質問を入力してください";
           valid = false;
         }
         break;
 
       case "result":
-        if (question.label !== undefined) {
-          errors.push("メッセージを入力してください");
+        if (question.label === "") {
+          errorsObj.noMessage = "メッセージを入力してください";
           valid = false;
         }
         break;
@@ -41,17 +45,26 @@ export default async function uploadQuestionData(
     }
   });
   if (!valid) {
-    const message = errors.join("\n")
-    return { status: "fail", message};
+    const message = Object.keys(errorsObj)
+      .map(e => {
+        const key = e as  keyof ErrorsObj
+        return errorsObj[key];
+      })
+      .join("\n");
+    return { status: "fail", message };
   }
 
   const colRef = collection(db, "forms");
-  const object = {
-    questions,
-    keyToRead: Math.random().toString(32).substring(2),
-  };
+  console.log(questions);
+
   try {
+    const object = {
+      questions,
+      keyToRead: Math.random().toString(32).substring(2),
+    };
+    console.log(object);
     const docRef = await addDoc(colRef, object);
+
     return {
       status: "success",
       ref: docRef.id,
@@ -59,7 +72,7 @@ export default async function uploadQuestionData(
       url: `${window.location.origin}/start/${docRef.id}`,
     };
   } catch (e) {
-    console.log(e)
+    console.log(e);
     return { status: "fail", message: "保存に失敗しました" };
   }
 }
