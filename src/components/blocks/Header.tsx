@@ -11,7 +11,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InfoIcon from "@mui/icons-material/Info";
 import ListItem from "@mui/material/ListItem";
-
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 interface BarProps {
   text: string;
   children: JSX.Element;
@@ -33,7 +33,6 @@ const Bar = ({ text, children, to }: BarProps): JSX.Element => {
 
 export default function Header(): JSX.Element {
   const [open, setOpen] = useState(false);
-  
 
   const list = (
     <Box
@@ -43,17 +42,17 @@ export default function Header(): JSX.Element {
       onKeyDown={() => setOpen(false)}
     >
       <List>
-           <Bar text="フォームを作る" to="create">
-            <NoteAddIcon />
-          </Bar>
-          <Bar text="使い方" to="help">
-            <QuestionMarkIcon />
-          </Bar>
-         <Bar text="このサイトについて" to="about">
-            <InfoIcon />
+        <Bar text="フォームを作る" to="create">
+          <NoteAddIcon />
+        </Bar>
+        <Bar text="使い方" to="help">
+          <QuestionMarkIcon />
+        </Bar>
+        <Bar text="このサイトについて" to="about">
+          <InfoIcon />
         </Bar>
         <Bar text="公開フォーム" to="open_form">
-            <InfoIcon />
+          <FormatListBulletedIcon />
         </Bar>
       </List>
     </Box>
