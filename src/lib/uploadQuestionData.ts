@@ -1,4 +1,4 @@
-import db from "../firebase";
+import db from "../db";
 import { addDoc, collection } from "firebase/firestore";
 import { Question } from "components/interface";
 interface Result {
@@ -15,7 +15,8 @@ interface ErrorsObj {
 }
 export default async function uploadQuestionData(
   questions: Question[],
-  isPublic: boolean = false
+  isPublic: boolean = false,
+  title?: string
 ): Promise<Result> {
   let valid = true;
   const errorsObj: ErrorsObj = {};
@@ -73,6 +74,7 @@ export default async function uploadQuestionData(
     const object = {
       questions,
       keyToRead: Math.random().toString(32).substring(2),
+      title
     };
     const docRef = await addDoc(colRef, object);
 

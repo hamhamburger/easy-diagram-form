@@ -1,5 +1,3 @@
-
-
 import TryDialog from "./TryDialog";
 import createDataStructure from "../../lib/createDataStructure";
 import uploadQuestionData from "../../lib/uploadQuestionData";
@@ -23,7 +21,6 @@ import QuestionNode from "../custom_nodes/QuestionNode";
 import AddNodeDialog from "./AddNodeDialog";
 import MessageDialog from "./MessageDialog";
 import { Question } from "components/interface";
-
 
 const Style = {
   backgroundColor: "lightblue",
@@ -67,7 +64,7 @@ const nodeTypes = {
   result: ResultNode as any,
 };
 
-interface Info { 
+interface Info {
   message: string;
   url?: string;
 }
@@ -84,8 +81,6 @@ const QuestionDiagram = (): JSX.Element => {
   });
   const [openMessageDialog, setOpenMessageDialog] = useState(false);
 
-
-
   const onConnect = useCallback(
     (connection: any) => {
       const answer = prompt("回答を入力して下さい");
@@ -94,7 +89,7 @@ const QuestionDiagram = (): JSX.Element => {
           {
             ...connection,
             type: "step",
-            label: answer === undefined ? answer : "はい",
+            label: answer !== undefined ? answer : "はい",
           },
           eds
         )
@@ -129,15 +124,18 @@ const QuestionDiagram = (): JSX.Element => {
         "一度公開すると削除できません。\n公開してもよろしいですか？"
       )
     ) {
-      // const result = await uploadQuestionData(parsedQuestions);
-      // const info = { message: result.message, url: result.url };
-      // setInfoForDialog(info);
-      // setOpenMessageDialog(true);
-      await uploadQuestionData(parsedQuestions).then(result => {
-        const info = { message: result.message, url: result.url };
-        setInfoForDialog(info);
-        setOpenMessageDialog(true);
-      });
+      const isPublic = window.confirm("公開しますか？");
+      let title;
+      if (isPublic) {
+        title = window.prompt("タイトルを入力してください") ?? "無題";
+      }
+      await uploadQuestionData(parsedQuestions, isPublic, title).then(
+        result => {
+          const info = { message: result.message, url: result.url };
+          setInfoForDialog(info);
+          setOpenMessageDialog(true);
+        }
+      );
     }
   }
 
@@ -279,20 +277,12 @@ const QuestionDiagram = (): JSX.Element => {
     </div>
   );
 };
-  export default function Diagram ():JSX.Element {
-    return (
-      
-      <>
-        <ReactFlowProvider>
-          <QuestionDiagram />
-        </ReactFlowProvider>
-      </>
-    );
-  }
-
-
-
-
-
-
-
+export default function Diagram(): JSX.Element {
+  return (
+    <>
+      <ReactFlowProvider>
+        <QuestionDiagram />
+      </ReactFlowProvider>
+    </>
+  );
+}

@@ -13,3 +13,9 @@ export interface DialogInfo {
   body: string;
   url?: string;
 }
+
+export interface Form {
+  questions: Question[]
+  title: string
+  id: string
+}

@@ -5,7 +5,7 @@ import { doc,getDoc} from "firebase/firestore";
 import React,{useState,useEffect,} from 'react';
 import { useParams } from 'react-router-dom';
 import AnswerForm from '../blocks/AnswerForm';
-import db from "../../firebase";
+import db from "../../db";
 import { Question } from "components/interface";
 
 

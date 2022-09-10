@@ -33,33 +33,7 @@ const Bar = ({ text, children, to }: BarProps): JSX.Element => {
 
 export default function Header(): JSX.Element {
   const [open, setOpen] = useState(false);
-  const switchBar = (text: string, index: number): JSX.Element => {
-    switch (index) {
-      case 0:
-        return (
-          <Bar text="フォームを作る" to="create" key={index}>
-            <NoteAddIcon />
-          </Bar>
-        );
-
-      case 1:
-        return (
-          <Bar text="使い方" to="help" key={index}>
-            <QuestionMarkIcon />
-          </Bar>
-        );
-
-      case 2:
-        return (
-          <Bar text="このサイトについて" to="about" key={index}>
-            <InfoIcon />
-          </Bar>
-        );
-
-      default:
-        return <></>;
-    }
-  };
+  
 
   const list = (
     <Box
@@ -69,9 +43,18 @@ export default function Header(): JSX.Element {
       onKeyDown={() => setOpen(false)}
     >
       <List>
-        {["フォームを作る", "使い方", "このサイトについて"].map((text, index) =>
-          switchBar(text, index)
-        )}
+           <Bar text="フォームを作る" to="create">
+            <NoteAddIcon />
+          </Bar>
+          <Bar text="使い方" to="help">
+            <QuestionMarkIcon />
+          </Bar>
+         <Bar text="このサイトについて" to="about">
+            <InfoIcon />
+        </Bar>
+        <Bar text="公開フォーム" to="open_form">
+            <InfoIcon />
+        </Bar>
       </List>
     </Box>
   );
