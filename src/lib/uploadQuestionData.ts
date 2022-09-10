@@ -16,7 +16,7 @@ interface ErrorsObj {
 export default async function uploadQuestionData(
   questions: Question[],
   isPublic: boolean = false,
-  title?: string
+  title: string = "無題"
 ): Promise<Result> {
   let valid = true;
   const errorsObj: ErrorsObj = {};

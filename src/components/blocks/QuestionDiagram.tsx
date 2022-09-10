@@ -124,7 +124,9 @@ const QuestionDiagram = (): JSX.Element => {
         "一度公開すると削除できません。\n公開してもよろしいですか？"
       )
     ) {
-      const isPublic = window.confirm("公開しますか？");
+      const isPublic = window.confirm(
+        "作ったフォームをこのサイトで公開しますか？"
+      );
       let title;
       if (isPublic) {
         title = window.prompt("タイトルを入力してください") ?? "無題";
