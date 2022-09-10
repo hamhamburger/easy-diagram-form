@@ -1,38 +1,48 @@
 import React,{memo,useState} from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import AnswerPage from '../pages/AnswerPage.js'
-import AnswerForm from './AnswerForm.js';
 
 
-const TryDialog = memo(({children,questions}) => {
+import AnswerForm from './AnswerForm';
+import {Question} from 'components/interface'
+interface Props{
+  children: JSX.Element
+  questions:Question[]
+}
+const TryDialog = memo(function TryDialog({children,questions}:Props) {
 
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = ():void => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = ():void => {
     setOpen(false);
   };
 
   return (
+
     <div>
+      
       <div onClick={handleClickOpen}>{children}</div>
       
+      
       <Dialog open={open} onClose={handleClose} fullWidth >
+        
         <DialogContent>
+        
         <DialogActions>
+          
           <Button onClick={handleClose}>閉じる</Button>
         </DialogActions>
+          
           <DialogContentText>
           </DialogContentText>
+          
           <AnswerForm questions={questions} height={"85vh"}></AnswerForm>
         </DialogContent>
 

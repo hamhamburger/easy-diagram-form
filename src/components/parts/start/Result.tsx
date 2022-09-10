@@ -1,17 +1,20 @@
 
 import { Container,Typography,Paper} from '@mui/material';
-import { AttractionsOutlined, Margin } from '@mui/icons-material';
-import { Box } from '../../../../node_modules/@mui/material/index';
+import React from "react"
 
+interface Props{
+  message: string
+}
     
 
-function Result({message}) {
+const Result = ({message}: Props):JSX.Element => {
   console.log(message)
   return(
     <Container>
         <Paper sx={{display: "flex",flexFlow:"column",justifyContent: "center",minHeight:'400px',textAlign:"center"}}>
-        
+
           <Typography variant="h4"  sx={{whiteSpace: "pre-wrap"}}>
+
                     {message}
           </Typography>
     

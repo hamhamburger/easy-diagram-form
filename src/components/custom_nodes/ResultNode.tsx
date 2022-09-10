@@ -1,13 +1,15 @@
-import { TextField } from '@mui/material';
-import { useCallback, memo } from 'react';
-import { Position } from 'react-flow-renderer';
-import TopHandle from '../handles/TopHandle';
+import { TextField } from "@mui/material";
+import React, { useCallback, memo } from "react";
+import { Position } from "react-flow-renderer";
+import TopHandle from "../handles/TopHandle";
+interface Props {
+  data: {
+    label: string
+  };
+}
+const ResultNode = memo(function ResultNode ({ data }:Props) {
 
-    
-
-const ResultNode = memo(({ data }) => {
-
-  const onChange = useCallback((evt) => {
+  const onChange = useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
     data.label = evt.target.value;
   }, []);
 
@@ -24,7 +26,7 @@ const ResultNode = memo(({ data }) => {
       <div className="inputHandleContainer" style={handleContainerStyle}>
         <TopHandle type="target" position={Position.Top}/>
       </div>
-      <TextField id="text" name="text" onChange={onChange} ariant='outlined' multiline
+      <TextField id="text" name="text" onChange={onChange} variant='outlined' multiline
                         maxRows={12} minRows={4}  margin='normal' placeholder='表示されるメッセージを入力してください' 
                         sx={{width:220,backgroundColor:"papayawhip",borderRadius:0}} inputProps={{style:{textAlign:"center",overflow: "hidden"}}}/>
 

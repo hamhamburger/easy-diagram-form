@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Handle, Position, NodeProps, Connection, Edge, HandleType } from 'react-flow-renderer';
+import styled from '@emotion/styled';
+import { Handle } from 'react-flow-renderer';
 
 const BottomHandle = styled(Handle)`
 && {
